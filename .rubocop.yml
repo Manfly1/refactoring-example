@@ -2,6 +2,14 @@ require: rubocop-rspec
 
 AllCops:
   NewCops: enable
+  Exclude:
+    - spec/spec_helper.rb
+    - spec/account_spec.rb
+    - spec/base_card_spec.rb
+    - spec/capitalist_card_spec.rb
+    - spec/console_spec.rb
+    - spec/usual_card_spec.rb
+    - spec/virtual_card_spec.rb
 
 RSpec/MessageChain:
   Enabled: false
@@ -34,13 +42,3 @@ Style/Documentation:
 
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-AllCops:
-  Exclude:
-    - spec/spec_helper.rb
-    - spec/account_spec.rb
-    - spec/base_card_spec.rb
-    - spec/capitalist_card_spec.rb
-    - spec/console_spec.rb
-    - spec/usual_card_spec.rb
-    - spec/virtual_card_spec.rb
