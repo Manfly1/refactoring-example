@@ -1,3 +1,3 @@
-require_relative 'lib/refactor_bank'
+require_relative 'lib/bootstrap'
 
 Console.new.console

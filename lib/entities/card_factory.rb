@@ -1,3 +1,4 @@
+module Entities
 class CardFactory
   CARDS = {
     usual: {
@@ -14,6 +15,9 @@ class CardFactory
     }
   }.freeze
 
-  def self.card
-
+  def self.card(card_type)
+    return false unless CARD_TYPES.key?(card_type)
+    Entities::Card.new(CARD_TYPES[card_type])
   end
+end
+end
