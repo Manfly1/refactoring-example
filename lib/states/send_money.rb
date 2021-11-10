@@ -2,7 +2,7 @@ module States
   class SendMoney < BaseState
     def action
       puts I18n.t(:send_money_message)
-      return unless account_have_cards?(@situation.current_account.card)
+      return unless account_have_cards?(@situation.account.card)
       select_card_step
     end
 
@@ -13,12 +13,12 @@ module States
     private
 
     def select_card_step
-      print_cards(@situation.current_account.card, I18n.t(:destroy_card_message))
+      print_cards(@situation.account.card, I18n.t(:destroy_card_message))
       selected_card_index = read_input.to_i
       return unless card_index_valid?(selected_card_index, @situation)
 
       selected_card_index -= 1
-      @sender_card = @situation.current_account.card[selected_card_index]
+      @sender_card = @situation.account.card[selected_card_index]
 
       receiver_card_number_step
     end

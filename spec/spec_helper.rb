@@ -1,10 +1,5 @@
-require 'simplecov'
 
-SimpleCov.start do
-  add_filter(%r{/spec/})
-end
-
-require 'refactor_bank'
+require 'bootstrap'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

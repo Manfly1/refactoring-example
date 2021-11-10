@@ -2,7 +2,7 @@ module States
   class PutMoney < BaseState
     def action
       puts I18n.t(:put_money_message)
-      return unless account_have_cards?(@situation.current_account.card)
+      return unless account_have_cards?(@situation.account.card)
 
       select_card_step
     end
@@ -14,12 +14,12 @@ module States
     private
 
     def select_card_step
-      print_cards(@situation.current_account.card, I18n.t(:destroy_card_message))
+      print_cards(@situation.account.card, I18n.t(:destroy_card_message))
       selected_card_index = read_input.to_i
-      return unless card_index_valid?(selected_card_index, @context)
+      return unless card_index_valid?(selected_card_index, @situation)
 
       selected_card_index -= 1
-      current_card = @situation.current_account.card[selected_card_index]
+      current_card = @situation.account.card[selected_card_index]
       read_amount_step(selected_card_index, current_card)
     end
 
@@ -35,8 +35,8 @@ module States
       return unless tax_valid?(tax, input_amount)
 
       current_card.balance = current_card.balance + input_amount - tax
-      @context.current_account.card[selected_card_index] = current_card
-      @context.save
+      @situation.account.card[selected_card_index] = current_card
+      @situation.save
       put_stats(input_amount, current_card.number, current_card.balance, tax)
     end
 

@@ -1,15 +1,14 @@
 module Entities
   class Console
-    include Storage
 
     STORAGE_FILE = 'account.yml'.freeze
    
     def initialize
       @situation = Storage.new(STORAGE_FILE)
-      @situation.state = States::State.new(@situation)
+      @situation.state = States::Welcome.new(@situation)
     end
 
-    def run
+    def start
       loop do
         @situation.state.action
         @situation.state = @situation.state.next

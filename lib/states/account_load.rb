@@ -1,5 +1,5 @@
 module States
-  class AccountLoad < State
+  class AccountLoad < BaseState
     def action
       if @situation.accounts.empty?
         puts I18n.t(:no_active_account_message)
@@ -8,7 +8,7 @@ module States
 
       login = read_login
       password = read_password
-      @context.current_account = get_account(login, password)
+      @situation.current_account = get_account(login, password)
       puts I18n.t(:no_account_message) unless @situation.current_account
     end
 

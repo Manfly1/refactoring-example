@@ -5,7 +5,7 @@ module States
       @answer = read_input
       return unless @answer == APPLY_COMMAND
 
-      @situation.accounts.delete_if { |account| account.login == @situation.current_account.login }
+      @situation.accounts.delete_if { |account| account.login == @situation.account.login }
       @situation.save
     end
 

@@ -1,5 +1,5 @@
 module Storage
-  attr_accessor :current_account, :accounts, :state, :file_path
+  attr_accessor :account, :accounts, :state, :file_path
 
   def initialize(file_path)
     @file_path = file_path

@@ -1,6 +1,6 @@
 module Entities
 class Account
-  extend Storage
+
   attr_accessor :cards
   attr_reader :login, :password, :name, :age
 

@@ -1,4 +1,4 @@
-module Modules
+
   module Helper
     EXIT_COMMAND = 'exit'.freeze
 
@@ -13,4 +13,3 @@ module Modules
       read_input
     end
   end
-end

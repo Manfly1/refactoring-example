@@ -1,5 +1,6 @@
 module States
   class CreateCard < BaseState
+   
     def action
       puts I18n.t(:create_card_message)
       card = Entities::CardFactory.card(read_input.to_sym)
@@ -8,7 +9,7 @@ module States
         return @wrong_card = true
       end
 
-      @situation.current_account.card << card
+      @situation.account.card << card
       @situation.save
     end
 

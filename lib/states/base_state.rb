@@ -1,6 +1,9 @@
 module States
   class BaseState
 
+    include Helper
+    include Storage
+
     APPLY_COMMAND = 'y'.freeze
 
     def initialize(situation)
@@ -15,7 +18,7 @@ module States
       BaseState.new.state(read_input, @situation)
     end
 
-    def save_context
+    def save_situation
       @situation.save
     end
   end
