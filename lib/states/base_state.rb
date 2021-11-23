@@ -1,21 +1,17 @@
 module States
   class BaseState
-
     include Helper
-    include Storage
 
     APPLY_COMMAND = 'y'.freeze
 
-    def initialize(situation)
-      @situation = situation
+    def initialize(situation); end
+
+    def step
+      BaseState.new.state(read_input, @situation)
     end
 
     def action
-      raise NotImplementedError
-    end
-
-    def next
-      BaseState.new.state(read_input, @situation)
+      raise Errors::CloseError
     end
 
     def save_situation

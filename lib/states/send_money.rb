@@ -1,33 +1,26 @@
 module States
   class SendMoney < BaseState
-    def action
-      puts I18n.t(:send_money_message)
-      return unless account_have_cards?(@situation.account.card)
-      select_card_step
+    def step
+      MenuAccount.new(@situation)
     end
 
-    def next
-      MenuAccount.new(@situation)
+    def action
+      puts I18n.t(:send_money_message)
+      return unless account_have_cards?(@situation.extant_account.card)
+
+      select_card_step
     end
 
     private
 
     def select_card_step
-      print_cards(@situation.account.card, I18n.t(:destroy_card_message))
+      print_cards(@situation.extant_account.card, I18n.t(:destroy_card_message))
       selected_card_index = read_input.to_i
       return unless card_index_valid?(selected_card_index, @situation)
 
       selected_card_index -= 1
-      @sender_card = @situation.account.card[selected_card_index]
-
+      @sender_card = @situation.extant_account.card[selected_card_index]
       receiver_card_number_step
-    end
-
-    def receiver_card_number_step
-      @receiver_card_number = read_input_with_title(I18n.t(:receiver_card))
-      return unless card_length_valid?(@receiver_card_number)
-
-      receiver_card_step
     end
 
     def receiver_card_step
@@ -35,6 +28,13 @@ module States
       return unless card_exists?(@receiver_card, @receiver_card_number)
 
       amount_step
+    end
+
+    def receiver_card_number_step
+      @receiver_card_number = read_input_with_title(I18n.t(:receiver_card))
+      return unless card_length_valid?(@receiver_card_number)
+
+      receiver_card_step
     end
 
     def amount_step
@@ -46,7 +46,7 @@ module States
 
     def taxes_step
       @sender_tax_amount = sender_tax(@sender_card.type, @amount)
-      @receiver_tax_amount = put_tax(@rreceiver_card.type, @amount)
+      @receiver_tax_amount = put_tax(@receiver_card.type, @amount)
       @sender_balance = @sender_card.balance - @amount - @sender_tax_amount
       @receiver_balance = @receiver_card.balance + @amount - @receivertax_amount
       return unless balance_valid?(@sender_balance)
@@ -63,9 +63,17 @@ module States
       put_stats(@amount, @rreceiver_card_number, @receiver_balance, @receiver_tax_amount)
     end
 
-    def receivertax_valid?(receivertax_amount, input_amount)
+    def receivertax_valid?(_receivertax_amount, input_amount)
       return true if receiver_tax_amount < input_amount
+
       puts I18n.t(:not_enough_money_error)
+      false
+    end
+
+    def card_exists?(card, _card_number)
+      return true unless card.nil?
+
+      puts I18n.t(:no_card_with_number_message)
       false
     end
 
@@ -73,14 +81,9 @@ module States
       @situation.accounts.flat_map(&:card).detect { |card| card.number == card_number }
     end
 
-    def card_exists?(card, card_number)
-      return true unless card.nil?
-      puts I18n.t(:no_card_with_number_message)
-      false
-    end
-
     def card_length_valid?(card_number)
       return true if card_number.length.between?(15, 17)
+
       puts I18n.t(:invalid_card_number_message)
       false
     end

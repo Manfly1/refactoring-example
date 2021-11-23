@@ -4,21 +4,22 @@ RSpec.describe States::CreateCard do
   VIRTUAL_CARD = 'virtual'.freeze
 
   let(:state) { described_class.new(situation) }
-  let(:account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
-  let(:situation) { instance_double('Sit') }
+  let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
+  let(:situation) { instance_double('Situation') }
 
-  describe '#next' do
+  describe '#step' do
     context 'with wrong card' do
       before do
         state.instance_variable_set(:@wrong_card, true)
       end
-      it 'invalid number for card' do 
-        expect(state.next).to be_a(described_class) 
+
+      it 'invalid number for card' do
+        expect(state.step).to be_a(described_class)
       end
     end
 
     context 'without wrong card' do
-          it { expect(state.next).to be_a(States::MenuAccount) }
+      it { expect(state.step).to be_a(States::MenuAccount) }
     end
   end
 end

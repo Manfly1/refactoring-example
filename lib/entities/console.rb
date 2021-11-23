@@ -1,8 +1,7 @@
 module Entities
   class Console
-
     STORAGE_FILE = 'account.yml'.freeze
-   
+
     def initialize
       @situation = Storage.new(STORAGE_FILE)
       @situation.state = States::Welcome.new(@situation)
@@ -11,9 +10,10 @@ module Entities
     def start
       loop do
         @situation.state.action
-        @situation.state = @situation.state.next
+        @situation.state = @situation.state.step
       end
-    rescue CloseError
+    rescue StandardError
+      Errors::CloseError
     end
   end
 end

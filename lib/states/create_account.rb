@@ -1,21 +1,21 @@
 module States
   class CreateAccount < BaseState
-
     CREATE_ACCOUNT_STATE = 'create'.freeze
 
-    def action
-      @errors = []
-      @situation.account = Entities::Account.new(name: name_input, age: age_input, login: login_input, password: password_input)
-      return if errors?
-
-      @situation.accounts << @situation.account
-      @situation.save
-    end
-
-    def next
+    def step
       return CreateAccount.new(@situation) if @next_state == CREATE_ACCOUNT_STATE
 
       MenuAccount.new(@situation)
+    end
+
+    def action
+      @errors = []
+      @situation.extant_account = Entities::Account.new(name: name_input, age: age_input, login: login_input,
+                                                        password: password_input)
+      return if errors?
+
+      @situation.accounts << @situation.extant_account
+      @situation.save
     end
 
     private
@@ -42,6 +42,6 @@ module States
 
     def age_input
       puts I18n.t(:age_message)
-     end
+    end
   end
 end

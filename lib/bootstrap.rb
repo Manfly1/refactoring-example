@@ -3,6 +3,7 @@ require 'yaml'
 require 'i18n'
 require_relative 'config/i18n_config'
 
+require_relative 'errors/close_error'
 require_relative 'errors/not_enough_money_error'
 require_relative 'errors/too_small_amount_error'
 require_relative 'modules/storage'

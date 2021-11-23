@@ -9,8 +9,8 @@ module Entities
       @type = type
     end
 
-    def tax(amount)
-      raise NotImplementedError
+    def tax(_amount)
+      raise Errors::CloseError
     end
 
     def initial_tax

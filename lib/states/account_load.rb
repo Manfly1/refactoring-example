@@ -1,5 +1,11 @@
 module States
   class AccountLoad < BaseState
+    def step
+      return CreateAccount.new(@situation) if @answer == APPLY_COMMAND
+
+      MenuAccount.new(@situation)
+    end
+
     def action
       if @situation.accounts.empty?
         puts I18n.t(:no_active_account_message)
@@ -8,13 +14,8 @@ module States
 
       login = read_login
       password = read_password
-      @situation.current_account = get_account(login, password)
-      puts I18n.t(:no_account_message) unless @situation.current_account
-    end
-
-    def next
-      return CreateAccount.new(@situation) if @answer == APPLY_COMMAND
-      MenuAccount.new(@situation)
+      @situation.extant_account = get_account(login, password)
+      puts I18n.t(:no_account_message) unless @situation.extant_account
     end
 
     private
