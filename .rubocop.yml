@@ -20,7 +20,7 @@ Metrics/BlockLength:
     - 'Gemfile'
     - 'spec/**/*.rb'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 Documentation:
@@ -28,6 +28,7 @@ Documentation:
 
 FrozenStringLiteralComment:
   Enabled: false
+  
 Security/YAMLLoad:
   Enabled: false
 
