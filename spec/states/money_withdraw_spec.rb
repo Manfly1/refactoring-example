@@ -5,14 +5,14 @@ RSpec.describe States::MoneyWithdraw do
   let(:amount) { '100' }
   let(:big_amount) { '1000' }
   let(:disapply) { 'n' }
-  let(:state) { described_class.new(situation) }
+  let(:state) { described_class.new(context) }
   let(:name) { 'Andrii' }
   let(:login) { 'andrii' }
   let(:password) { '987654' }
   let(:wrong_password) { '98765412' }
   let(:age) { '54' }
   let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:situation) { instance_double('Storage', accounts: []) }
+  let(:context) { instance_double('Storage', accounts: []) }
   let(:card_number) { '1234555512345555' }
   let(:card_type) { 'usual' }
   let(:card_index) { 1 }
@@ -35,7 +35,7 @@ RSpec.describe States::MoneyWithdraw do
   describe 'action' do
     context 'without active cards' do
       before do
-        allow(situation).to receive(:extant_account).and_return(extant_account)
+        allow(context).to receive(:extant_account).and_return(extant_account)
       end
 
       it do
@@ -46,7 +46,7 @@ RSpec.describe States::MoneyWithdraw do
     context 'wrong card index' do
       before do
         allow(extant_account).to receive(:card).and_return(cards)
-        allow(situation).to receive(:extant_account).and_return(extant_account)
+        allow(context).to receive(:extant_account).and_return(extant_account)
         allow(state).to receive(:read_input).and_return(wrong_index)
       end
 

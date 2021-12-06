@@ -5,14 +5,14 @@ module States
       @answer = read_input
       return unless @answer == APPLY_COMMAND
 
-      @situation.accounts.delete_if { |account| account.login == @situation.extant_account.login }
-      @situation.save
+      @context.accounts.delete_if { |account| account.login == @context.extant_account.login }
+      @context.save
     end
 
     def step
-      return BaseState.new(@situation) if @answer == APPLY_COMMAND
+      return BaseState.new(@context) if @answer == APPLY_COMMAND
 
-      MenuAccount.new(@situation)
+      MenuAccount.new(@context)
     end
   end
 end

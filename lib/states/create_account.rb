@@ -3,19 +3,19 @@ module States
     CREATE_ACCOUNT_STATE = 'create'.freeze
 
     def step
-      return CreateAccount.new(@situation) if @next_state == CREATE_ACCOUNT_STATE
+      return CreateAccount.new(@context) if @next_state == CREATE_ACCOUNT_STATE
 
-      MenuAccount.new(@situation)
+      MenuAccount.new(@context)
     end
 
     def action
       @errors = []
-      @situation.extant_account = Entities::Account.new(name: name_input, age: age_input, login: login_input,
-                                                        password: password_input)
+      @context.extant_account = Entities::Account.new(name: name_input, age: age_input, login: login_input,
+                                                      password: password_input)
       return if errors?
 
-      @situation.accounts << @situation.extant_account
-      @situation.save
+      @context.accounts << @context.extant_account
+      @context.save
     end
 
     private

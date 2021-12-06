@@ -6,20 +6,20 @@ module States
 
     APPLY_COMMAND = 'y'.freeze
 
-    def initialize(situation)
-      @situation = situation
+    def initialize(context)
+      @context = context
     end
 
     def step
-      BaseState.new.state(read_input, @situation)
+      BaseState.new.state(read_input, @context)
     end
 
     def action
       raise Errors::CloseError
     end
 
-    def save_situation
-      @situation.save
+    def save_context
+      @context.save
     end
   end
 end

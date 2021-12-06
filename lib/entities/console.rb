@@ -3,14 +3,14 @@ module Entities
     STORAGE_FILE = 'account.yml'.freeze
 
     def initialize
-      @situation = Storage.new(STORAGE_FILE)
-      @situation.state = States::Welcome.new(@situation)
+      @context = Storage.new(STORAGE_FILE)
+      @context.state = States::Welcome.new(@context)
     end
 
     def start
       loop do
-        @situation.state.action
-        @situation.state = @situation.state.step
+        @context.state.action
+        @context.state = @context.state.step
       end
     rescue Errors::CloseError
       puts 'Bye-bye'

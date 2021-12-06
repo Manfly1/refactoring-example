@@ -10,36 +10,36 @@ module States
     WITHDRAW_MONEY_COMMAND = 'WM'.freeze
     SEND_MONEY_COMMAND = 'SM'.freeze
 
-    def state(command, situation)
+    def state(command, context)
       case command
-      when LOAD_ACCOUNT_COMMAND then States::AccountLoad.new(situation)
-      when CREATE_ACCOUNT_COMMAND then States::CreateAccount.new(situation)
-      else menu_state(command, situation)
+      when LOAD_ACCOUNT_COMMAND then States::AccountLoad.new(context)
+      when CREATE_ACCOUNT_COMMAND then States::CreateAccount.new(context)
+      else menu_state(command, context)
       end
     end
 
-    def card_state(command, situation)
+    def card_state(command, context)
       case command
-      when SHOW_CARDS_COMMAND then States::ShowCards.new(situation)
-      when DESTROY_CARD_COMMAND then States::DestroyCard.new(situation)
-      when CREATE_CARD_COMMAND then States::CreateCard.new(situation)
-      else money_operations_state(command, situation)
+      when SHOW_CARDS_COMMAND then States::ShowCards.new(context)
+      when DESTROY_CARD_COMMAND then States::DestroyCard.new(context)
+      when CREATE_CARD_COMMAND then States::CreateCard.new(context)
+      else money_operations_state(command, context)
       end
     end
 
-    def money_operations_state(command, situation)
+    def money_operations_state(command, context)
       case command
-      when WITHDRAW_MONEY_COMMAND then States::MoneyWithdraw.new(situation)
-      when SEND_MONEY_COMMAND then States::SendMoney.new(situation)
-      when PUT_MONEY_COMMAND then States::PutMoney.new(situation)
+      when WITHDRAW_MONEY_COMMAND then States::MoneyWithdraw.new(context)
+      when SEND_MONEY_COMMAND then States::SendMoney.new(context)
+      when PUT_MONEY_COMMAND then States::PutMoney.new(context)
       else raise Errors::NotEnoughMoneyError
       end
     end
 
-    def menu_state(command, situation)
-      return States::DestroyAccount.new(situation) if command == DESTROY_ACCOUNT_COMMAND
+    def menu_state(command, context)
+      return States::DestroyAccount.new(context) if command == DESTROY_ACCOUNT_COMMAND
 
-      card_state(command, situation)
+      card_state(command, context)
     end
   end
 end

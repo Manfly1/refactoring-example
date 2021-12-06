@@ -1,12 +1,12 @@
 module States
   class SendMoney < BaseState
     def step
-      MenuAccount.new(@situation)
+      MenuAccount.new(@context)
     end
 
     def action
       puts I18n.t(:send_money_message)
-      return unless account_have_cards?(@situation.extant_account.card)
+      return unless account_have_cards?(@context.extant_account.card)
 
       select_card_step
     end
@@ -14,12 +14,12 @@ module States
     private
 
     def select_card_step
-      print_cards(@situation.extant_account.card, I18n.t(:destroy_card_message))
+      print_cards(@context.extant_account.card, I18n.t(:destroy_card_message))
       selected_card_index = read_input.to_i
-      return unless card_index_valid?(selected_card_index, @situation)
+      return unless card_index_valid?(selected_card_index, @context)
 
       selected_card_index -= 1
-      @sender_card = @situation.extant_account.card[selected_card_index]
+      @sender_card = @context.extant_account.card[selected_card_index]
       receiver_card_number_step
     end
 
@@ -58,7 +58,7 @@ module States
     def save_balances_step
       @sender_card.balance = @sender_balance
       @receiver_card.balance = @receiver_balance
-      @situation.save
+      @context.save
       withdraw_stats(@amount, @sender_card.number, @sender_balance, @sender_tax_amount)
       put_stats(@amount, @rreceiver_card_number, @receiver_balance, @receiver_tax_amount)
     end
@@ -78,7 +78,7 @@ module States
     end
 
     def card_by_number(card_number)
-      @situation.accounts.flat_map(&:card).detect { |card| card.number == card_number }
+      @context.accounts.flat_map(&:card).detect { |card| card.number == card_number }
     end
 
     def card_length_valid?(card_number)

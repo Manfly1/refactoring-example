@@ -1,7 +1,7 @@
 RSpec.describe States::ShowCards do
   let(:apply) { 'y' }
   let(:disapply) { 'n' }
-  let(:state) { described_class.new(situation) }
+  let(:state) { described_class.new(context) }
   let(:name) { 'Andrii' }
   let(:login) { 'andrii' }
   let(:password) { '987654' }
@@ -11,12 +11,12 @@ RSpec.describe States::ShowCards do
   let(:card_index) { 1 }
   let(:wrong_index) { 123 }
   let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:situation) { instance_double('Storage') }
+  let(:context) { instance_double('Storage') }
   let(:cards) { [instance_double('Card', number: card_number, type: card_type)] }
 
   describe 'action' do
     before do
-      allow(situation).to receive(:extant_account).and_return(extant_account)
+      allow(context).to receive(:extant_account).and_return(extant_account)
     end
 
     context 'without cards' do

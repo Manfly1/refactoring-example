@@ -1,9 +1,9 @@
 module States
   class CreateCard < BaseState
     def step
-      return CreateCard.new(@situation) if @wrong_card
+      return CreateCard.new(@context) if @wrong_card
 
-      MenuAccount.new(@situation)
+      MenuAccount.new(@context)
     end
   end
 
@@ -14,7 +14,7 @@ module States
       puts I18n.t(:wrong_card_type_message)
       return @wrong_card = true
     end
-    @situation.extant_account.card << card
-    @situation.save
+    @context.extant_account.card << card
+    @context.save
   end
 end

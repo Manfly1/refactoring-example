@@ -3,9 +3,9 @@ RSpec.describe States::CreateCard do
   CAPITALIST_CARD = 'capitalist'.freeze
   VIRTUAL_CARD = 'virtual'.freeze
 
-  let(:state) { described_class.new(situation) }
+  let(:state) { described_class.new(context) }
   let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
-  let(:situation) { instance_double('Storage') }
+  let(:context) { instance_double('Storage') }
 
   describe '#step' do
     context 'with wrong card' do

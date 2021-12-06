@@ -1,7 +1,7 @@
 RSpec.describe States::DestroyCard do
-  let(:state) { described_class.new(situation) }
+  let(:state) { described_class.new(context) }
   let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
-  let(:situation) { instance_double('Storage') }
+  let(:context) { instance_double('Storage') }
   let(:cards) { [instance_double('Universal', number: '4444111122225555', type: 'virtual')] }
   let(:card_index) { 7 }
   let(:wrong_index) { 357 }
@@ -10,7 +10,7 @@ RSpec.describe States::DestroyCard do
     context 'true' do
       before do
         allow(extant_account).to receive(:card).and_return(cards)
-        allow(situation).to receive(:extant_account).and_return(extant_account)
+        allow(context).to receive(:extant_account).and_return(extant_account)
       end
 
       it 'when card valid' do
@@ -21,7 +21,7 @@ RSpec.describe States::DestroyCard do
 
     context 'false' do
       before do
-        allow(situation).to receive(:extant_account).and_return(extant_account)
+        allow(context).to receive(:extant_account).and_return(extant_account)
       end
 
       it 'when card invalid' do

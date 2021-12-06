@@ -1,9 +1,9 @@
 RSpec.describe States::DestroyAccount do
   let(:apply) { 'y' }
   let(:disapply) { 'n' }
-  let(:state) { described_class.new(situation) }
+  let(:state) { described_class.new(context) }
   let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
-  let(:situation) { instance_double('Storage') }
+  let(:context) { instance_double('Storage') }
   let(:accounts) { [extant_account] }
 
   describe '#step' do
@@ -24,9 +24,9 @@ RSpec.describe States::DestroyAccount do
 
   describe '#action' do
     before do
-      allow(situation).to receive(:extant_account).and_return(extant_account)
-      allow(situation).to receive(:accounts).and_return(accounts)
-      allow(situation).to receive(:save)
+      allow(context).to receive(:extant_account).and_return(extant_account)
+      allow(context).to receive(:accounts).and_return(accounts)
+      allow(context).to receive(:save)
     end
 
     context 'true' do
@@ -41,7 +41,7 @@ RSpec.describe States::DestroyAccount do
 
       it 'call save' do
         state.action
-        expect(situation).to have_received(:save)
+        expect(context).to have_received(:save)
       end
     end
   end

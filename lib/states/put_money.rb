@@ -1,12 +1,12 @@
 module States
   class PutMoney < BaseState
     def step
-      MenuAccount.new(@situation)
+      MenuAccount.new(@context)
     end
 
     def action
       puts I18n.t(:put_money_message)
-      return unless account_have_cards?(@situation.extant_account.card)
+      return unless account_have_cards?(@context.extant_account.card)
 
       select_card_step
     end
@@ -21,12 +21,12 @@ module States
     end
 
     def select_card_step
-      print_cards(@situation.extant_account.card, I18n.t(:destroy_card_message))
+      print_cards(@context.extant_account.card, I18n.t(:destroy_card_message))
       selected_card_index = read_input.to_i
-      return unless card_index_valid?(selected_card_index, @situation)
+      return unless card_index_valid?(selected_card_index, @context)
 
       selected_card_index -= 1
-      extant_card = @situation.extant_account.card[selected_card_index]
+      extant_card = @context.extant_account.card[selected_card_index]
       read_amount_step(selected_card_index, extant_card)
     end
 
@@ -35,8 +35,8 @@ module States
       return unless tax_valid?(tax, input_amount)
 
       extant_card.balance = extant_card.balance + input_amount - tax
-      @situation.extant_account.card[selected_card_index] = extant_card
-      @situation.save
+      @context.extant_account.card[selected_card_index] = extant_card
+      @context.save
       put_stats(input_amount, extant_card.number, extant_card.balance, tax)
     end
 
