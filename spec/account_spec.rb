@@ -25,8 +25,6 @@
 #     age: 'Enter your age'
 #   }.freeze
 
-#   # rubocop:disable Metrics/LineLength
-
 #   CREATE_CARD_PHRASES = [
 #     'You could create one of 3 card types',
 #     '- Usual card. 2% tax on card INCOME. 20$ tax on SENDING money from this card. 5% tax on WITHDRAWING money. For creation this card - press `usual`',

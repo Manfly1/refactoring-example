@@ -1,14 +1,14 @@
 module States
   class MoneyWithdraw < BaseState
-    def step
-      MenuAccount.new(@situation)
-    end
-
     def action
       puts I18n.t(:withdraw_money_message)
       return unless account_have_cards?(@situation.extant_account.card)
 
       select_card_step
+    end
+
+    def step
+      MenuAccount.new(@situation)
     end
 
     private

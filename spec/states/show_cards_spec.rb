@@ -11,7 +11,7 @@ RSpec.describe States::ShowCards do
   let(:card_index) { 1 }
   let(:wrong_index) { 123 }
   let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:situation) { instance_double('Situation') }
+  let(:situation) { instance_double('Storage') }
   let(:cards) { [instance_double('Card', number: card_number, type: card_type)] }
 
   describe 'action' do
@@ -21,7 +21,7 @@ RSpec.describe States::ShowCards do
 
     context 'without cards' do
       it do
-        expect { state.action }
+        expect { state.action }.to output(/#{I18n.t('no_active_cards_message')}/).to_stdout
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe States::ShowCards do
       end
 
       it do
-        expect { state.action }
+        expect { state.action }.to output(/#{card_number}/).to_stdout
       end
     end
   end

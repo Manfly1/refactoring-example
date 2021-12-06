@@ -5,7 +5,7 @@ RSpec.describe States::CreateCard do
 
   let(:state) { described_class.new(situation) }
   let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
-  let(:situation) { instance_double('Situation') }
+  let(:situation) { instance_double('Storage') }
 
   describe '#step' do
     context 'with wrong card' do

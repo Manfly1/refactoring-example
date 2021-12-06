@@ -1,10 +1,14 @@
 module States
   class BaseState
-    include Helper
+    include Modules::Helper
+    include Modules::Validate
+    include Modules::Statistic
 
     APPLY_COMMAND = 'y'.freeze
 
-    def initialize(situation); end
+    def initialize(situation)
+      @situation = situation
+    end
 
     def step
       BaseState.new.state(read_input, @situation)

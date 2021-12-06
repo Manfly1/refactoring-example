@@ -1,6 +1,6 @@
 RSpec.describe States::CreateAccount do
   let(:state) { described_class.new(situation) }
-  let(:situation) { instance_double('Situation', accounts: []) }
+  let(:situation) { instance_double('Storage', accounts: []) }
   let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
 
   describe '#action' do
@@ -22,6 +22,11 @@ RSpec.describe States::CreateAccount do
 
     context 'saving with errors' do
       let(:errors) { ['error'] }
+
+      before do
+        allow(extant_account).to receive(:validated?).and_return(false)
+        allow(extant_account).to receive(:errors).and_return(errors)
+      end
 
       it 'received errors' do
         state.action

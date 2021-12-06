@@ -12,7 +12,7 @@ RSpec.describe States::MoneyWithdraw do
   let(:wrong_password) { '98765412' }
   let(:age) { '54' }
   let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:situation) { instance_double('Situation', accounts: []) }
+  let(:situation) { instance_double('Storage', accounts: []) }
   let(:card_number) { '1234555512345555' }
   let(:card_type) { 'usual' }
   let(:card_index) { 1 }
@@ -20,6 +20,9 @@ RSpec.describe States::MoneyWithdraw do
   let(:card) { instance_double('Card', number: card_number, type: card_type, balance: 0) }
   let(:cards) { [card] }
   let(:right_tax) { 1 }
+  let(:without_active_cards) { 'no active cards' }
+  let(:choose) { 'choose_correct_card' }
+  let(:no_money_message) { 'not enough money on card' }
 
   describe 'step' do
     context 'return menu state' do
@@ -36,7 +39,7 @@ RSpec.describe States::MoneyWithdraw do
       end
 
       it do
-        expect { state.action }
+        expect { state.action }.to output(/#{without_active_cards}/).to_stdout
       end
     end
 
@@ -48,31 +51,7 @@ RSpec.describe States::MoneyWithdraw do
       end
 
       it do
-        expect { state.action }
-      end
-    end
-
-    context 'success' do
-      before do
-        allow(extant_account).to receive(:card).and_return(cards)
-        allow(situation).to receive(:extant_account).and_return(extant_account)
-        allow(state).to receive(:read_input).and_return(card_index, wrong_amount)
-      end
-
-      it do
-        expect { state.action }
-      end
-    end
-
-    context 'wrong number cards' do
-      before do
-        allow(extant_account).to receive(:card).and_return(cards)
-        allow(situation).to receive(:extant_account).and_return(extant_account)
-        allow(state).to receive(:read_input).and_return(card_index, amount)
-      end
-
-      it do
-        expect { state.action }
+        expect { state.action }.to output(/#{I18n.t('choose_correct_card')}/).to_stdout
       end
     end
   end

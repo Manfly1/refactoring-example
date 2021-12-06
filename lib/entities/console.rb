@@ -12,8 +12,8 @@ module Entities
         @situation.state.action
         @situation.state = @situation.state.step
       end
-    rescue StandardError
-      Errors::CloseError
+    rescue Errors::CloseError
+      puts 'Bye-bye'
     end
   end
 end

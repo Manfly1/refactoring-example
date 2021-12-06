@@ -9,7 +9,7 @@ RSpec.describe States::SendMoney do
   let(:password) { '123456' }
   let(:age) { '54' }
   let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:situation) { instance_double('Sit', accounts: []) }
+  let(:situation) { instance_double('Storage', accounts: []) }
   let(:card_number) { '1234567812345678' }
   let(:wrong_card_number) { '85156' }
   let(:not_exist_card_number) { '1111222233334444' }
@@ -25,6 +25,10 @@ RSpec.describe States::SendMoney do
   let(:receiver_cards) { instance_double('Card', number: receiver_card_number, type: card_type, balance: 0) }
   let(:receiver_card_number) { '4900567812345678' }
   let(:accounts) { [extant_account, receiver] }
+  let(:without_active_cards) { 'no active cards' }
+  let(:without_money_message) { 'not enough money on card' }
+  let(:no_card_message) { 'no card' }
+  let(:wrong_card_number_msg) { 'input correct number' }
 
   describe 'action' do
     context 'without active cards' do
@@ -33,7 +37,7 @@ RSpec.describe States::SendMoney do
       end
 
       it do
-        expect { state.action }
+        expect { state.action }.to output(/#{without_active_cards}/).to_stdout
       end
     end
 
@@ -45,7 +49,7 @@ RSpec.describe States::SendMoney do
       end
 
       it do
-        expect { state.action }
+        expect { state.action }.to output(/#{wrong_card_number_msg}/).to_stdout
       end
     end
 
@@ -59,7 +63,7 @@ RSpec.describe States::SendMoney do
       end
 
       it do
-        expect { state.action }
+        expect { state.action }.to output(/#{I18n.t('wrong_money_amount')}/).to_stdout
       end
     end
 
@@ -72,23 +76,7 @@ RSpec.describe States::SendMoney do
       end
 
       it do
-        expect { state.action }
-      end
-    end
-
-    context 'no money' do
-      before do
-        allow(extant_account).to receive(:card).and_return(cards)
-        allow(receiver).to receive(:card).and_return(receiver_cards)
-        allow(situation).to receive(:accounts).and_return(accounts)
-        allow(situation).to receive(:extant_account).and_return(extant_account)
-        allow(state).to receive(:read_input).and_return(card_index, receiver_card_number, big_amount)
-        allow(state).to receive(:sender_tax).and_return(0)
-        allow(state).to receive(:put_tax).and_return(0)
-      end
-
-      it do
-        expect { state.action }
+        expect { state.action }.to output(/#{no_card_message}/).to_stdout
       end
     end
   end
