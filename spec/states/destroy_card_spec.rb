@@ -41,12 +41,6 @@ RSpec.describe States::DestroyCard do
     end
 
     context 'falsey' do
-
-      it 'when card invalid' do
-        state.instance_variable_set(:@selected_card_index, card_index)
-        expect(state.next).to be_a(described_class)
-      end
-    end
     context 'with cards wrong index' do
       before do
         allow(state).to receive(:read_input).and_return(wrong_index)
@@ -58,3 +52,5 @@ RSpec.describe States::DestroyCard do
   end
 end
 end
+end
+

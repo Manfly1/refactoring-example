@@ -3,18 +3,26 @@ module States
     MENU_STATE = :main_menu_message
 
     def next
-      return MenuAccount.new(@context) if @next_state == MENU_STATE
+      return MenuAccount.new(@context) if next_state
 
       DestroyCard.new(@context)
     end
 
     def action
-      return @next_state = MENU_STATE unless account_have_cards?(@context.extant_account.card)
+      return next_state unless check_if_have_cards
 
       select_card
     end
 
     private
+
+    def next_state
+      @next_state = MENU_STATE
+    end
+
+    def check_if_have_cards
+      account_have_cards?(@context.extant_account.card)
+    end
 
     def select_card
       print_cards(@context.extant_account.card, I18n.t(:destroy_card_message))
