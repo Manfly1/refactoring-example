@@ -23,7 +23,6 @@ RSpec.describe States::DestroyCard do
     
 
       it 'when card valid' do
-        state.instance_variable_set(:@next_state, States::DestroyCard::MENU_STATE)
         expect(state.next).to be_a(States::MenuAccount)
       end
 

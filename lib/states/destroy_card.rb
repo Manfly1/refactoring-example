@@ -11,7 +11,7 @@ module States
     def action
       return next_state unless check_if_have_cards
 
-      select_card
+      choose_card
     end
 
     private
@@ -24,7 +24,7 @@ module States
       account_have_cards?(@context.extant_account.card)
     end
 
-    def select_card
+    def choose_card
       print_cards(@context.extant_account.card, I18n.t(:destroy_card_message))
       selected_card_index = read_input.to_i
       return unless card_index_valid?(selected_card_index, @context)
