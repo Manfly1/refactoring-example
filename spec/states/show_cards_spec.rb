@@ -11,7 +11,7 @@ RSpec.describe States::ShowCards do
   let(:card_index) { 1 }
   let(:wrong_index) { 123 }
   let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:context) { instance_double('Storage') }
+  let(:context) { instance_double('Context') }
   let(:cards) { [instance_double('Card', number: card_number, type: card_type)] }
 
   describe 'action' do

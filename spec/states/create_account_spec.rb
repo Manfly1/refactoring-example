@@ -1,6 +1,6 @@
 RSpec.describe States::CreateAccount do
   let(:state) { described_class.new(context) }
-  let(:context) { instance_double('Storage', accounts: []) }
+  let(:context) { instance_double('Context', accounts: []) }
   let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
 
   describe '#action' do
@@ -34,17 +34,17 @@ RSpec.describe States::CreateAccount do
     end
   end
 
-  describe '#step' do
+  describe '#next' do
     context 'return MenuAccount state' do
       it 'MenuAccount state' do
-        expect(state.step).to be_a(States::MenuAccount)
+        expect(state.next).to be_a(States::MenuAccount)
       end
     end
 
     context 'return CreateAccount state' do
       it 'has received errors' do
         state.instance_variable_set(:@next_state, States::CreateAccount::CREATE_ACCOUNT_STATE)
-        expect(state.step).to be_a(described_class)
+        expect(state.next).to be_a(described_class)
       end
     end
   end

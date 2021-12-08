@@ -1,6 +1,6 @@
 module States
-  class PutMoney < BaseState
-    def step
+  class PutMoney < Base
+    def next
       MenuAccount.new(@context)
     end
 

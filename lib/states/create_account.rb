@@ -1,8 +1,8 @@
 module States
-  class CreateAccount < BaseState
+  class CreateAccount < Base
     CREATE_ACCOUNT_STATE = 'create'.freeze
 
-    def step
+    def next
       return CreateAccount.new(@context) if @next_state == CREATE_ACCOUNT_STATE
 
       MenuAccount.new(@context)

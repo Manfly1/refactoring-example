@@ -1,5 +1,5 @@
 module States
-  class Welcome < BaseState
+  class Welcome < Base
     def action
       puts I18n.t(:hello)
       @context.load_accounts

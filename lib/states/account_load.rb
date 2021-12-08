@@ -1,6 +1,6 @@
 module States
-  class AccountLoad < BaseState
-    def step
+  class AccountLoad < Base
+    def next
       return CreateAccount.new(@context) if @answer == APPLY_COMMAND
 
       MenuAccount.new(@context)

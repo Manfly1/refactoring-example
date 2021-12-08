@@ -5,21 +5,21 @@ RSpec.describe States::CreateCard do
 
   let(:state) { described_class.new(context) }
   let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
-  let(:context) { instance_double('Storage') }
+  let(:context) { instance_double('Context') }
 
-  describe '#step' do
+  describe '#next' do
     context 'with wrong card' do
       before do
         state.instance_variable_set(:@wrong_card, true)
       end
 
       it 'invalid number for card' do
-        expect(state.step).to be_a(described_class)
+        expect(state.next).to be_a(described_class)
       end
     end
 
     context 'without wrong card' do
-      it { expect(state.step).to be_a(States::MenuAccount) }
+      it { expect(state.next).to be_a(States::MenuAccount) }
     end
   end
 end

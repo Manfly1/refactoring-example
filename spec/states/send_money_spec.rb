@@ -9,7 +9,7 @@ RSpec.describe States::SendMoney do
   let(:password) { '123456' }
   let(:age) { '54' }
   let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:context) { instance_double('Storage', accounts: []) }
+  let(:context) { instance_double('Context', accounts: []) }
   let(:card_number) { '1234567812345678' }
   let(:wrong_card_number) { '85156' }
   let(:not_exist_card_number) { '1111222233334444' }

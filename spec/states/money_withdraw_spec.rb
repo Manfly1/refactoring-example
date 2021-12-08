@@ -12,7 +12,7 @@ RSpec.describe States::MoneyWithdraw do
   let(:wrong_password) { '98765412' }
   let(:age) { '54' }
   let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:context) { instance_double('Storage', accounts: []) }
+  let(:context) { instance_double('Context', accounts: []) }
   let(:card_number) { '1234555512345555' }
   let(:card_type) { 'usual' }
   let(:card_index) { 1 }
@@ -24,10 +24,10 @@ RSpec.describe States::MoneyWithdraw do
   let(:choose) { 'choose_correct_card' }
   let(:no_money_message) { 'not enough money on card' }
 
-  describe 'step' do
+  describe 'next' do
     context 'return menu state' do
       it do
-        expect(state.step).to be_a(States::MenuAccount)
+        expect(state.next).to be_a(States::MenuAccount)
       end
     end
   end

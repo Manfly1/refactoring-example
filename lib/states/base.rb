@@ -1,5 +1,5 @@
 module States
-  class BaseState
+  class Base
     include Modules::Helper
     include Modules::Validate
     include Modules::Statistic
@@ -8,10 +8,6 @@ module States
 
     def initialize(context)
       @context = context
-    end
-
-    def step
-      BaseState.new.state(read_input, @context)
     end
 
     def action

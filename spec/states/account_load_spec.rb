@@ -3,7 +3,7 @@ RSpec.describe States::AccountLoad do
   let(:apply) { 'y' }
   let(:disapply) { 'n' }
   let(:account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:context) { instance_double('Storage', accounts: []) }
+  let(:context) { instance_double('Context', accounts: []) }
   let(:accounts) { [account] }
   let(:name) { 'Andrii' }
   let(:login) { 'andrii' }
@@ -13,11 +13,11 @@ RSpec.describe States::AccountLoad do
   let(:without_accounts) { 'no active accounts' }
   let(:login) { 'Enter your login' }
 
-  describe '#step' do
+  describe '#next' do
     context 'create account' do
       it do
         state.instance_variable_set(:@answer, apply)
-        expect(state.step).to be_a(States::CreateAccount)
+        expect(state.next).to be_a(States::CreateAccount)
       end
     end
 
@@ -27,7 +27,7 @@ RSpec.describe States::AccountLoad do
       end
 
       it do
-        expect(state.step).to be_a(States::MenuAccount)
+        expect(state.next).to be_a(States::MenuAccount)
       end
     end
   end

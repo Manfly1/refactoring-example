@@ -1,5 +1,5 @@
 module States
-  class MoneyWithdraw < BaseState
+  class MoneyWithdraw < Base
     def action
       puts I18n.t(:withdraw_money_message)
       return unless account_have_cards?(@context.extant_account.card)
@@ -7,7 +7,7 @@ module States
       select_card_step
     end
 
-    def step
+    def next
       MenuAccount.new(@context)
     end
 

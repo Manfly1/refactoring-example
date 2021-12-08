@@ -29,6 +29,9 @@ Documentation:
 Style/OptionalBooleanParameter:
   Enabled: false
 
+Style/GuardClause:
+  Enabled: false
+  
 FrozenStringLiteralComment:
   Enabled: false
 

@@ -1,5 +1,5 @@
 module States
-  class ShowCards < BaseState
+  class ShowCards < Base
     def action
       puts I18n.t(:no_active_cards_message) if @context.extant_account.card.empty?
       @context.extant_account.card.each do |card|

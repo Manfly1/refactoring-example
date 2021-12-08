@@ -1,8 +1,8 @@
 module States
-  class DestroyCard < BaseState
+  class DestroyCard < Base
     MENU_STATE = :main_menu_message
 
-    def step
+    def next
       return MenuAccount.new(@context) if @next_state == MENU_STATE
 
       DestroyCard.new(@context)
@@ -13,6 +13,8 @@ module States
 
       select_card
     end
+
+    private
 
     def select_card
       print_cards(@context.extant_account.card, I18n.t(:destroy_card_message))

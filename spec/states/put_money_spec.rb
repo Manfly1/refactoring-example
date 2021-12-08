@@ -7,17 +7,17 @@ RSpec.describe States::PutMoney do
   let(:password) { '123456' }
   let(:age) { '54' }
   let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:context) { instance_double('Storage', accounts: []) }
+  let(:context) { instance_double('Context', accounts: []) }
   let(:card_number) { '1234567812345678' }
   let(:card_type) { 'usual' }
   let(:card) { instance_double('Card', number: card_number, type: card_type, balance: 0) }
   let(:cards) { [card] }
   let(:without_active_cards) { 'no active cards' }
 
-  describe 'step' do
+  describe 'next' do
     context 'return menu state' do
       it do
-        expect(state.step).to be_a(States::MenuAccount)
+        expect(state.next).to be_a(States::MenuAccount)
       end
     end
   end
