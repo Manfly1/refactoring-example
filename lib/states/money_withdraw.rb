@@ -22,8 +22,8 @@ module States
     end
 
     def tax_step
-      @withdraw_tax_amount = withdraw_tax(@extant_card.type, @amount)
-      @money_left = @extant_card.balance - @amount - @withdraw_tax_amount
+      @withdraw_tax_amount = withdraw_tax(@current_card.type, @amount)
+      @money_left = @current_card.balance - @amount - @withdraw_tax_amount
       return unless balance_valid?(@money_left)
 
       save_balance_step
@@ -31,7 +31,7 @@ module States
 
     def read_amount_step
       @selected_card_index -= 1
-      @extant_card = @context.account.card[@selected_card_index]
+      @current_card = @context.extant_account.card[@selected_card_index]
       @amount = read_input_with_title(I18n.t(:withdraw_amount_message)).to_i
       return unless amount_valid?(@amount)
 
@@ -39,10 +39,14 @@ module States
     end
 
     def save_balance_step
-      @extant_card.balance = @money_left
-      @context.extant_account.card[@selected_card_index] = @extant_card
+      @current_card.balance = @money_left
+      @context.extant_account.card[@selected_card_index] = @current_card
       @context.save
-      context(@amount, @extant_card.number, @money_left, @withdraw_tax_amount)
+      withdraw_stats(@amount, @current_card.number, @money_left, @withdraw_tax_amount)
+    end
+
+    def withdraw_tax(type, amount)
+      Entities::WithdrawTax.new(type).tax(amount)
     end
   end
 end

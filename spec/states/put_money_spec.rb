@@ -10,6 +10,8 @@ RSpec.describe States::PutMoney do
   let(:context) { instance_double('Context', accounts: []) }
   let(:card_number) { '1234567812345678' }
   let(:card_type) { 'usual' }
+  let(:card_index) { 1 }
+  let(:right_tax) { 1 }
   let(:card) { instance_double('Card', number: card_number, type: card_type, balance: 0) }
   let(:cards) { [card] }
   let(:without_active_cards) { 'no active cards' }
@@ -23,27 +25,28 @@ RSpec.describe States::PutMoney do
   end
 
   describe 'action' do
-    context 'without active cards' do
-      before do
-        allow(context).to receive(:extant_account).and_return(extant_account)
-      end
-
-      it do
-        expect { state.action }.to output(/#{without_active_cards}/).to_stdout
-      end
-    end
-
     context 'success' do
       before do
         allow(extant_account).to receive(:card).and_return(cards)
         allow(context).to receive(:extant_account).and_return(extant_account)
         allow(context).to receive(:save)
-        allow(state).to receive(:read_input).and_return(card_number, amount)
+        allow(state).to receive(:read_input).and_return(card_index, amount)
+        allow(state).to receive(:put_tax).and_return(right_tax)
         allow(card).to receive(:balance=)
       end
 
       it do
         expect { state.action }.to output(/#{card_number}/).to_stdout
+      end
+    end
+
+    context 'false' do
+      before do
+        allow(context).to receive(:extant_account).and_return(extant_account)
+      end
+
+      it 'without active cards' do
+        expect { state.action }.to output(/#{without_active_cards}/).to_stdout
       end
     end
   end

@@ -1,9 +1,5 @@
 module States
   class SendMoney < Base
-    def next
-      MenuAccount.new(@context)
-    end
-
     def action
       puts I18n.t(:send_money_message)
       return unless account_have_cards?(@context.extant_account.card)
@@ -11,10 +7,14 @@ module States
       select_card_step
     end
 
+    def next
+      MenuAccount.new(@context)
+    end
+
     private
 
     def select_card_step
-      print_cards(@context.extant_account.card, I18n.t(:destroy_card_message))
+      print_cards(@context.extant_account.card)
       selected_card_index = read_input.to_i
       return unless card_index_valid?(selected_card_index, @context)
 
@@ -63,11 +63,15 @@ module States
       put_stats(@amount, @rreceiver_card_number, @receiver_balance, @receiver_tax_amount)
     end
 
-    def receivertax_valid?(_receivertax_amount, input_amount)
+    def receiver_tax_valid?(receiver_tax_amount, input_amount)
       return true if receiver_tax_amount < input_amount
 
       puts I18n.t(:not_enough_money_error)
       false
+    end
+
+    def card_by_number(card_number)
+      @context.accounts.flat_map(&:card).detect { |card| card.number == card_number }
     end
 
     def card_exists?(card, _card_number)
@@ -75,10 +79,6 @@ module States
 
       puts I18n.t(:no_card_with_number_message)
       false
-    end
-
-    def card_by_number(card_number)
-      @context.accounts.flat_map(&:card).detect { |card| card.number == card_number }
     end
 
     def card_length_valid?(card_number)
@@ -89,11 +89,11 @@ module States
     end
 
     def put_tax(type, amount)
-      Entities::Tax.new(type).tax(amount)
+      Entities::PutTax.new(type).tax(amount)
     end
 
-    def sender_tax(type, amount)
-      Entities::SenderTax.new(type).tax(amount)
+    def send_tax(type, amount)
+      Entities::SendTax.new(type).tax(amount)
     end
   end
 end

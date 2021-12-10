@@ -1,7 +1,7 @@
 module States
   class Base
     include Modules::Helper
-    include Modules::Validate
+    include Modules::Validates
     include Modules::Statistic
 
     APPLY_COMMAND = 'y'.freeze
@@ -11,7 +11,11 @@ module States
     end
 
     def action
-      raise Errors::CloseError
+      raise NotImplementedError
+    end
+
+    def next
+      StateFactory.new.state(read_input, @context)
     end
 
     def save_context

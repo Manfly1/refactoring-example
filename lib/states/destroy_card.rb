@@ -2,16 +2,16 @@ module States
   class DestroyCard < Base
     MENU_STATE = :main_menu_message
 
-    def next
-      return MenuAccount.new(@context) if next_state
-
-      DestroyCard.new(@context)
-    end
-
     def action
       return next_state unless check_if_have_cards
 
       choose_card
+    end
+
+    def next
+      return MenuAccount.new(@context) if next_state
+
+      DestroyCard.new(@context)
     end
 
     private
@@ -33,7 +33,7 @@ module States
     end
 
     def apply_to_delete_cart(selected_card_index)
-      puts I18n.t(:destroy_card_message, card_number: @context.extant_account.card[selected_card_index - 1].number)
+      puts I18n.t(:destroy_card_message, card_number: @context.extant_account.card[selected_card_index - 1])
       return unless read_input == APPLY_COMMAND
 
       delete_cart(selected_card_index)

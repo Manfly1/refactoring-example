@@ -2,7 +2,7 @@ module Entities
   class Card
     attr_accessor :type, :number, :balance, :tax
 
-    def initialize(*)
+    def initialize(type:, balance:, tax: 0)
       @type = type
       @number = generate_card_number
       @balance = balance

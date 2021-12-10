@@ -20,8 +20,7 @@ RSpec.describe States::DestroyCard do
       allow(context).to receive(:extant_account).and_return(extant_account)
     end
     context 'success' do
-    
-
+  
       it 'when card valid' do
         expect(state.next).to be_a(States::MenuAccount)
       end
@@ -38,18 +37,7 @@ RSpec.describe States::DestroyCard do
         end
       end
     end
+end
+end
 
-    context 'falsey' do
-    context 'with cards wrong index' do
-      before do
-        allow(state).to receive(:read_input).and_return(wrong_index)
-      end
-
-      it do
-        expect { state.action }.to output(/#{I18n.t('choose_correct_card')}/).to_stdout
-      end
-  end
-end
-end
-end
 

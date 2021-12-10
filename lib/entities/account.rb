@@ -1,14 +1,14 @@
 module Entities
   class Account
-    attr_accessor :cards
-    attr_reader :login, :password, :name, :age
+    attr_reader :login, :name, :password, :age
+    attr_accessor :card
 
-    def initialize(login:, password:, name:, age:)
+    def initialize(name:, login:, password:, age:)
+      @name = name
       @login = login
       @password = password
-      @name = name
       @age = age
-      @cards = []
+      @card = []
     end
   end
 end

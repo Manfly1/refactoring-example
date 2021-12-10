@@ -21,8 +21,7 @@ RSpec.describe States::MoneyWithdraw do
   let(:cards) { [card] }
   let(:right_tax) { 1 }
   let(:without_active_cards) { 'no active cards' }
-  let(:choose) { 'choose_correct_card' }
-  let(:no_money_message) { 'not enough money on card' }
+ 
 
   describe 'next' do
     context 'return menu state' do
@@ -33,25 +32,30 @@ RSpec.describe States::MoneyWithdraw do
   end
 
   describe 'action' do
-    context 'without active cards' do
+    context 'success' do
       before do
+        allow(card).to receive(:balance).and_return(big_amount.to_i)
+        allow(extant_account).to receive(:card).and_return(cards)
         allow(context).to receive(:extant_account).and_return(extant_account)
+        allow(state).to receive(:read_input).and_return(card_index, amount)
+        allow(state).to receive(:withdraw_tax).and_return(0)
+        allow(context).to receive(:save)
+        allow(card).to receive(:balance=)
       end
 
-      it do
-        expect { state.action }.to output(/#{without_active_cards}/).to_stdout
+      it 'when all right' do
+        state.action
+        expect(context).to have_received(:save)
       end
     end
 
-    context 'wrong card index' do
+    context 'false' do
       before do
-        allow(extant_account).to receive(:card).and_return(cards)
         allow(context).to receive(:extant_account).and_return(extant_account)
-        allow(state).to receive(:read_input).and_return(wrong_index)
       end
 
-      it do
-        expect { state.action }.to output(/#{I18n.t('choose_correct_card')}/).to_stdout
+      it 'without active cards' do
+        expect { state.action }.to output(/#{without_active_cards}/).to_stdout
       end
     end
   end
