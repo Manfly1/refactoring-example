@@ -1,4 +1,4 @@
-RSpec.describe StateFactory do
+RSpec.describe Factories::StateFactory do
   let(:context) { instance_double('Storage') }
 
   describe 'state' do

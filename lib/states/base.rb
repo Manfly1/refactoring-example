@@ -15,7 +15,7 @@ module States
     end
 
     def next
-      StateFactory.new.state(read_input, @context)
+      Factories::StateFactory.new.state(read_input, @context)
     end
 
     def save_context

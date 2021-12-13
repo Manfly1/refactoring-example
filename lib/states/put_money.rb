@@ -23,7 +23,7 @@ module States
     def select_card_step
       print_cards(@context.extant_account.card)
       selected_card_index = read_input.to_i
-      return unless card_index_valid?(selected_card_index, @context)
+      return unless card_index_valid?(selected_card_index)
 
       selected_card_index -= 1
       current_card = @context.extant_account.card[selected_card_index]

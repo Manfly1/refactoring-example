@@ -27,7 +27,7 @@ module States
     def choose_card
       print_cards(@context.extant_account.card, I18n.t(:destroy_card_message))
       selected_card_index = read_input.to_i
-      return unless card_index_valid?(selected_card_index, @context)
+      return unless card_index_valid?(selected_card_index)
 
       apply_to_delete_cart(selected_card_index)
     end

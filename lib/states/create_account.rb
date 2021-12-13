@@ -6,7 +6,7 @@ module States
       @errors = []
       @context.extant_account = Entities::Account.new(name: name_input, login: login_input, age: age_input,
                                                       password: password_input)
-      return if errors?
+      return if errors
 
       @context.accounts << @context.extant_account
       @context.save
@@ -20,7 +20,7 @@ module States
 
     private
 
-    def errors?
+    def errors
       return false if @errors.empty?
 
       @errors.each { |error| puts error }
