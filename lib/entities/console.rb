@@ -1,9 +1,8 @@
 module Entities
   class Console
-    STORAGE_FILE = 'account.yml'.freeze
 
     def initialize
-      @context = Storage.new(STORAGE_FILE)
+      @context = Context.new
       @context.state = States::Welcome.new(@context)
     end
 
