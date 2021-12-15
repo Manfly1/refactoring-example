@@ -1,20 +1,17 @@
 RSpec.describe States::ShowCards do
-  let(:apply) { 'y' }
-  let(:disapply) { 'n' }
   let(:state) { described_class.new(context) }
+  let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
   let(:name) { 'Andrii' }
   let(:login) { 'andrii' }
   let(:password) { '987654' }
   let(:age) { '54' }
+  let(:cards) { [instance_double('Card', number: card_number, type: card_type)] }
   let(:card_number) { '1234555512345555' }
   let(:card_type) { 'usual' }
-  let(:card_index) { 1 }
-  let(:wrong_index) { 123 }
-  let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:context) { instance_double('Context') }
-  let(:cards) { [instance_double('Card', number: card_number, type: card_type)] }
+  let(:context) { instance_double('Storage') }
 
-  describe 'action' do
+
+  describe '#action' do
     before do
       allow(context).to receive(:extant_account).and_return(extant_account)
     end

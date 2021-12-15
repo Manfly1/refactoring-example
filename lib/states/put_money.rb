@@ -2,7 +2,7 @@ module States
   class PutMoney < Base
     def action
       puts I18n.t(:put_money_message)
-      return unless account_have_cards?(@context.extant_account.card)
+      return if account_have_cards?(@context.extant_account.card)
 
       select_card_step
     end
@@ -41,10 +41,10 @@ module States
     end
 
     def tax_valid?(tax, amount)
-      return true if tax < amount
+      puts I18n.t(:invalid_amount_message) if tax < amount
 
-      puts I18n.t(:invalid_amount_message)
       false
+      
     end
 
     def put_tax(type, amount)

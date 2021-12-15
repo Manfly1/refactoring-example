@@ -3,7 +3,7 @@ module Entities
     STORAGE_FILE = 'account.yml'.freeze
 
     def initialize
-      @context = Context.new(STORAGE_FILE)
+      @context = Storage.new(STORAGE_FILE)
       @context.state = States::Welcome.new(@context)
     end
 

@@ -4,7 +4,6 @@ RSpec.describe States::CreateCard do
   VIRTUAL_CARD = 'virtual'.freeze
 
   let(:state) { described_class.new(context) }
-  let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
   let(:context) { instance_double('Context') }
 
   describe '#next' do

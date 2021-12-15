@@ -1,8 +1,8 @@
 module States
   class Base
-    include Modules::Helper
-    include Modules::Validates
-    include Modules::Statistic
+    include Helper
+    include Validates
+    include Statistic
 
     APPLY_COMMAND = 'y'.freeze
 
@@ -15,7 +15,7 @@ module States
     end
 
     def next
-      Factories::StateFactory.new.state(read_input, @context)
+      Factories::State.new.state(read_input, @context)
     end
 
     def save_context

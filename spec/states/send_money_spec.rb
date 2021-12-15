@@ -1,21 +1,18 @@
 RSpec.describe States::SendMoney do
-  let(:amount) { '100' }
-  let(:wrong_amount) { '0' }
-  let(:big_amount) { '1000' }
-  let(:disapply) { 'n' }
   let(:state) { described_class.new(context) }
+  let(:wrong_amount) { '0' }
+  let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
   let(:name) { 'Andrii' }
   let(:login) { 'andrii' }
   let(:password) { '123456' }
   let(:age) { '54' }
-  let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:context) { instance_double('Context', accounts: []) }
+  let(:context) { instance_double('Storage', accounts: []) }
+  let(:card) { instance_double('Card', number: card_number, type: card_type, balance: 0) }
   let(:card_number) { '1234567812345678' }
   let(:wrong_card_number) { '85156' }
   let(:not_exist_card_number) { '1111222233334444' }
   let(:card_type) { 'usual' }
   let(:card_index) { 1 }
-  let(:card) { instance_double('Card', number: card_number, type: card_type, balance: 0) }
   let(:cards) { [card] }
   let(:receiver) do
     instance_double('Account', name: receiver_name, login: receiver_login, password: password, age: age, card: [])
@@ -26,11 +23,10 @@ RSpec.describe States::SendMoney do
   let(:receiver_card_number) { '4900567812345678' }
   let(:accounts) { [extant_account, receiver] }
   let(:without_active_cards) { 'no active cards' }
-  let(:without_money_message) { 'not enough money on card' }
   let(:no_card_message) { 'no card' }
   let(:wrong_card_number_msg) { 'input correct number' }
 
-  describe 'action' do
+  describe '#action' do
     context 'without active cards' do
       before do
         allow(context).to receive(:extant_account).and_return(extant_account)

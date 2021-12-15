@@ -1,5 +1,5 @@
-RSpec.describe Factories::StateFactory do
-  let(:context) { instance_double('Storage') }
+RSpec.describe Factories::State do
+  let(:context) { instance_double('Context') }
 
   describe 'state' do
     it 'create account state' do

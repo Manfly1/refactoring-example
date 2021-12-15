@@ -1,5 +1,5 @@
 module Factories
-  class StateFactory
+  class State
     CREATE_ACCOUNT_COMMAND = 'create'.freeze
     LOAD_ACCOUNT_COMMAND = 'load'.freeze
     DESTROY_ACCOUNT_COMMAND = 'DA'.freeze
@@ -17,6 +17,8 @@ module Factories
       else menu_state(command, context)
       end
     end
+
+    private
 
     def card_state(command, context)
       case command
