@@ -8,6 +8,7 @@ gem 'i18n'
 
 group :development do
   gem 'fasterer'
+  gem 'panolint'
   gem 'pry'
   gem 'rubocop'
   gem 'rubocop-rspec'
