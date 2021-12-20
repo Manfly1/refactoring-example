@@ -7,7 +7,6 @@ executors:
     docker:
       - image: circleci/ruby:2.7.0
         environment:
-          RAILS_ENV: test
           BUNDLER_VERSION: 2.2.33
 caches:
   - &bundle_cache v3-repo-{{ checksum "Gemfile.lock" }}
@@ -75,4 +74,6 @@ workflows:
   build:
     jobs:
       - lintering
-      - run_specs
+      - run_specs:
+          requires:
+            - lintering
