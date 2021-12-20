@@ -29,7 +29,7 @@ commands:
     description: command to start linters
     steps:
       - run:
-          name: rubocop
+          name: rubcop
           command: bundle exec rubocop
   run_specs:
     steps:
