@@ -33,7 +33,7 @@ commands:
           name: run specs
           command: |
             mkdir -p /tmp/test-results
-            bundle exec rspec --format progress
+            bundle exec rspec spec --format progress
 
   setup_environment:
     steps:
