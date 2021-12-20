@@ -1,10 +1,11 @@
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 2.7.0
   NewCops: enable
   DisplayCopNames: true
   DisplayStyleGuide: true
   Exclude:
     - 'spec/**/*.rb'
+    - 'vendor/**/*'
 
 Metrics/BlockLength:
   Exclude:
