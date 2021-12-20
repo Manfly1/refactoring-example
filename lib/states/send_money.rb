@@ -62,9 +62,8 @@ module States
     end
 
     def receiver_tax_valid?(receiver_tax_amount, input_amount)
-      return true if receiver_tax_amount < input_amount
+      puts I18n.t(:not_enough_money_error) if receiver_tax_amount < input_amount
 
-      puts I18n.t(:not_enough_money_error)
       false
     end
 
@@ -73,16 +72,14 @@ module States
     end
 
     def card_exists?(card, _card_number)
-      return true unless card.nil?
+      puts I18n.t(:no_card_with_number_message) unless card.nil?
 
-      puts I18n.t(:no_card_with_number_message)
       false
     end
 
     def card_length_valid?(card_number)
-      return true if card_number.length.between?(15, 17)
+      puts I18n.t(:invalid_card_number_message) if card_number.length.between?(15, 17)
 
-      puts I18n.t(:invalid_card_number_message)
       false
     end
 

@@ -39,14 +39,14 @@ RSpec.describe States::PutMoney do
       end
     end
 
-    # context 'false' do
-    #   before do
-    #     allow(context).to receive(:extant_account).and_return(extant_account)
-    #   end
+    context 'false' do
+      before do
+        allow(context).to receive(:extant_account).and_return(extant_account)
+      end
 
-    #   it 'without active cards' do
-    #     expect { state.action }.to output(/#{without_active_cards}/).to_stdout
-    #   end
-    # end
+      it 'without active cards' do
+        expect { state.action }.to output(/#{without_active_cards}/).to_stdout
+      end
+    end
   end
 end
