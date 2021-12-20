@@ -26,6 +26,4 @@ Style/GuardClause:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Security/YAMLLoad:
-  Enabled: false
   

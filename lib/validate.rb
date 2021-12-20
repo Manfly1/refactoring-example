@@ -1,17 +1,25 @@
 module Validates
   def balance_valid?(balance)
-    puts I18n.t('no_money') unless balance.negative?
+    return true unless balance.negative?
+
+    puts I18n.t('no_money')
   end
 
   def amount_valid?(amount)
-    puts I18n.t('wrong_money_amount') if amount.positive?
+    return true if amount.positive?
+
+    puts I18n.t('wrong_money_amount')
   end
 
   def card_index_valid?(selected_card_index)
-    puts I18n.t('choose_correct_card') if selected_card_index
+    return true if selected_card_index
+
+    puts I18n.t('choose_correct_card')
   end
 
   def account_have_cards?(cards)
-    puts I18n.t('no_active_cards_message') unless cards.any?
+    return true if cards.any?
+
+    puts I18n.t('no_active_cards_message')
   end
 end
