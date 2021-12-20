@@ -19,15 +19,7 @@ commands:
           command: |
             gem update --system
             gem install bundler
-            bundle config set path 'vendor/bundle'
-            sudo apt update
-      - run: sudo apt-get install cmake
-      - run: bundle install
-      - save_cache:
-          key: *bundle_cache
-          paths:
-            - vendor/bundle
-
+            
   run_linters:
     description: command to start linters
     steps:
@@ -41,6 +33,23 @@ commands:
           name: run specs
           command: bundle exec rspec --format progress
 
+  setup_environment:
+    steps:
+      - checkout
+      - restore_cache:
+          key: *bundle_cache
+      - run:
+          command: |
+            gem update --system
+            gem install bundler
+            bundle config set path 'vendor/bundle'
+            sudo apt update
+      - run: sudo apt-get install cmake
+      - run: bundle install
+      - save_cache:
+          key: *bundle_cache
+          paths:
+            - vendor/bundle
 jobs:
   lintering:
     executor: default
