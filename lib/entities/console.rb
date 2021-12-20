@@ -1,6 +1,5 @@
 module Entities
   class Console
-
     def initialize
       @context = Context.new
       @context.state = States::Welcome.new(@context)
