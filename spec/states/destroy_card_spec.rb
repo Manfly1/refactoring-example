@@ -17,13 +17,11 @@ RSpec.describe States::DestroyCard do
       allow(extant_account).to receive(:card).and_return(cards)
       allow(context).to receive(:extant_account).and_return(extant_account)
     end
+
     context 'success' do
-  
       it 'when card valid, step to the next state after delete' do
         expect(state.next).to be_a(States::MenuAccount)
       end
     end
+  end
 end
-end
-
-

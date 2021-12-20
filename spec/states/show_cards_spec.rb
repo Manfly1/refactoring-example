@@ -10,7 +10,6 @@ RSpec.describe States::ShowCards do
   let(:card_type) { 'usual' }
   let(:context) { instance_double('Storage') }
 
-
   describe '#action' do
     before do
       allow(context).to receive(:extant_account).and_return(extant_account)

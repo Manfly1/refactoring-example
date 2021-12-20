@@ -3,6 +3,10 @@ require: rubocop-rspec
 AllCops:
   TargetRubyVersion: 2.7
   NewCops: enable
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Exclude:
+    - 'spec/**/*.rb'
 
 RSpec/MessageChain:
   Enabled: false
@@ -41,7 +45,4 @@ Style/FrozenStringLiteralComment:
 
 Security/YAMLLoad:
   Enabled: false
-
-AllCops:
-  Exclude:
-    - 'spec/**/*.rb'
+  

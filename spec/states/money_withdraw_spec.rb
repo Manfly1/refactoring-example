@@ -15,7 +15,6 @@ RSpec.describe States::MoneyWithdraw do
   let(:cards) { [card] }
   let(:right_tax) { 1 }
   let(:without_active_cards) { 'no active cards' }
- 
 
   describe '#next' do
     context 'return menu state' do
