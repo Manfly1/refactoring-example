@@ -7,7 +7,7 @@ executors:
     docker:
       - image: circleci/ruby:2.7.0
         environment:
-          BUNDLER_VERSION: 2.2.33
+          RAILS_ENV: test
 caches:
   - &bundle_cache v3-repo-{{ checksum "Gemfile.lock" }}
 
@@ -31,11 +31,10 @@ commands:
       - run: 
           name: run specs
           command: |
-          mkdir /tmp/test-results
+           mkdir /tmp/test-results
               TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
               bundle exec rspec --format progress \
-                                --out /tmp/test-results/rspec.xml \
-                                $TEST_FILES
+              $TEST_FILES
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
