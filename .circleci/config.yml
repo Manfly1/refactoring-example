@@ -13,14 +13,13 @@ cashes:
   - &bundle_cache v2-repo-
 
 commands:
-  defaults:
+  update_bundler:
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - *bundle_caches_v1
-            - *bundle_cache
-      - run: sudo apt-get install cmake && bundle install --path vendor/bundle
+      - run:
+          name: install dependencies
+          command: |
+            gem update --system
+            gem install bundler
       - save_cache:
           key: *bundle_cache
           paths:
@@ -31,6 +30,9 @@ commands:
       - run:
           name: rubucop
           command: bundle exec rubocop
+      - run:
+          name: fasterer
+          command: bundle exec fasterer
   run_specs:
     steps:
       - run:
