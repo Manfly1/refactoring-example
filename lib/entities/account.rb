@@ -1,4 +1,5 @@
 module Entities
+
   class Account
     attr_reader :login, :name, :password, :age
     attr_accessor :card
@@ -11,4 +12,5 @@ module Entities
       @card = []
     end
   end
+  
 end
