@@ -1,4 +1,5 @@
 require 'bootstrap'
+require 'i18n'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
