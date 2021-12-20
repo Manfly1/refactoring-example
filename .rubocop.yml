@@ -15,15 +15,15 @@ RSpec/ExampleLength:
 RSpec/MessageSpies:
   Enabled: false
 
-Metrics/BlockLength:
+Layout/BlockLength:
   Exclude:
     - 'Gemfile'
     - 'spec/**/*.rb'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
-Documentation:
+Style/Documentation:
   Enabled: false
 
 Style/OptionalBooleanParameter:
@@ -32,7 +32,7 @@ Style/OptionalBooleanParameter:
 Style/GuardClause:
   Enabled: false
   
-FrozenStringLiteralComment:
+Style/FrozenStringLiteralComment:
   Enabled: false
 
 Security/YAMLLoad:
