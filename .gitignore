@@ -3,6 +3,5 @@ accounts.yml
 spec/fixtures/account.yml
 coverage
 .DS_Store
-*yml
 *yaml
 /vendor/bundle/

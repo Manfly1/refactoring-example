@@ -1,0 +1,55 @@
+en:
+  name_message: 'Enter your name'
+  age_message: 'Enter your age'
+  login_message: 'Enter your login'
+  password_message: 'Enter your password'
+  invalid_credentials_message: 'There is no account with given credentials'
+  destroy_account_message: 'Are you sure you want to destroy account?[y/n]'
+  no_active_account_message: 'There is no active accounts, do you want to be the first?[y/n]'
+  no_account_message: 'No account'
+  no_money: "You don't have enough money on card for such operation"
+  wrong_money_amount: 'You must input correct amount of money'
+  no_card_with_number_message: "There is no card\n"
+  send_money_message: 'Choose the card for sending:'
+  select_card: "- %{card_number}, %{card_type}, press %{index}"
+  hello: |+  
+    'Hello, we are RubyG bank!',
+    '- If you want to create account - press `create`',
+    '- If you want to load account - press `load`',
+    '- If you want to close app - press `close`'
+  main_menu_message: |+
+    
+    Welcome, %{name}
+    If you want to:
+    - show all cards - press SC
+    - create card - press CC
+    - destroy card - press DC
+    - put money on card - press PM
+    - withdraw money on card - press WM
+    - send money to another card  - press SM
+    - destroy account - press `DA`
+    - exit from account - press `exit`
+
+  destroy_card_message: 'Are you sure you want to delete %{card_number}?[y/n]'
+  create_card_message:  |
+    You could create one of 3 card types
+    - Usual card. 2% tax on card INCOME. 20$ tax on SENDING money from this card. 5% tax on WITHDRAWING money. For creation this card - press `usual`
+    - Capitalist card. 10$ tax on card INCOME. 10% tax on SENDING money from this card. 4$ tax on WITHDRAWING money. For creation this card - press `capitalist`
+    - Virtual card. 1$ tax on card INCOME. 1$ tax on SENDING money from this card. 12% tax on WITHDRAWING money. For creation this card - press `virtual`
+    - For exit - press `exit`
+  put_money_message: 'Choose the card for putting:'
+  put_amount_message: 'Input the amount of money you want to put on your card'
+  invalid_amount_message: 'You must input correct amount of money'
+  no_active_cards_message: 'There is no active cards!'
+  choose_correct_card: 'Choose correct card'
+  withdraw_money_message: 'Choose the card for withdrawing:'
+  withdraw_amount_message: 'Input the amount of money you want to withdraw'
+  withdraw_statistic: "Money %{amount} withdrawed from %{current_card}$. Money left: %{balance}. Tax: %{tax}"
+  put_statistic: "Money %{amount} was put on %{current_card}. Balance: %{balance}. Tax: %{tax}"
+  row_card_message: "- %{card_number}, %{card_type}"
+  invalid_card_number_message: 'Please, input correct number of card'
+  receiver_card: 'Enter the receiver card:'
+  close_message: 'Bye-bye'
+  not_enough_money_error: 'Not enough money for such operation'
+  too_small_amount_error: 'Your tax is higher than input amount'
+
