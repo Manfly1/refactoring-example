@@ -6,7 +6,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 ruby '2.7.0'
 
-gem 'i18n'
+gem 'i18n', '~> 1.8', '>= 1.8.11'
 
 group :development do
   gem 'fasterer'

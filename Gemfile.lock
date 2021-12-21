@@ -99,7 +99,7 @@ PLATFORMS
 
 DEPENDENCIES
   fasterer
-  i18n
+  i18n (~> 1.8, >= 1.8.11)
   pry
   rspec (~> 3.8)
   rubocop
