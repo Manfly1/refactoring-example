@@ -42,7 +42,6 @@ module States
 
     def tax_valid?(tax, amount)
       return true if tax < amount
-
       puts I18n.t(:invalid_amount_message)
       false
     end

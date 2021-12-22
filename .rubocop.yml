@@ -15,6 +15,9 @@ Metrics/BlockLength:
 Layout/LineLength:
   Max: 120
 
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

@@ -1,4 +1,4 @@
-class Storage
+module Storage
   attr_accessor :extant_account, :state, :accounts, :file_path
 
   def initialize(file_path)

@@ -3,6 +3,7 @@ module States
     include Helper
     include Validates
     include Statistic
+    include Storage
 
     APPLY_COMMAND = 'y'.freeze
 
