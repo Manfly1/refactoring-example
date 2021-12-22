@@ -41,9 +41,7 @@ module States
     end
 
     def tax_valid?(tax, amount)
-      true if tax < amount
-
-      puts I18n.t(:invalid_amount_message)
+      tax < amount unless puts I18n.t(:invalid_amount_message)
     end
 
     def put_tax(type, amount)
