@@ -1,7 +1,7 @@
 module States
   class Base
     include Helper
-    include Validates
+    include Validate
     include Statistic
     include Storage
 
@@ -20,7 +20,13 @@ module States
     end
 
     def save_context
-      @context.save
+      @context.state.save
+    end
+
+    def cards
+      raise Errors::NoCardsForAccount unless @context.state.extant_account.cards
+
+      @context.state.extant_account.cards
     end
   end
 end

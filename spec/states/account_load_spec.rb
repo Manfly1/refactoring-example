@@ -2,7 +2,7 @@ RSpec.describe States::AccountLoad do
   let(:state) { described_class.new(context) }
   let(:apply) { 'y' }
   let(:account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:context) { instance_double('Storage', accounts: []) }
+  let(:context) { instance_double('Context') }
   let(:accounts) { [account] }
   let(:name) { 'Andrii' }
   let(:login) { 'andrii' }

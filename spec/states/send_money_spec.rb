@@ -48,5 +48,32 @@ RSpec.describe States::SendMoney do
         expect { state.action }.to output(/#{wrong_card_number_msg}/).to_stdout
       end
     end
+
+    context 'wrong amount' do
+      before do
+        allow(extant_account).to receive(:card).and_return(cards)
+        allow(receiver).to receive(:card).and_return(receiver_cards)
+        allow(context).to receive(:accounts).and_return(accounts)
+        allow(context).to receive(:extant_account).and_return(extant_account)
+        allow(state).to receive(:read_input).and_return(card_index, receiver_card_number, wrong_amount)
+      end
+
+      it do
+        expect { state.action }.to output(/#{I18n.t('wrong_money_amount')}/).to_stdout
+      end
+    end
+
+    context 'wrong number card' do
+      before do
+        allow(extant_account).to receive(:card).and_return(cards)
+        allow(context).to receive(:accounts).and_return(accounts)
+        allow(context).to receive(:extant_account).and_return(extant_account)
+        allow(state).to receive(:read_input).and_return(card_index, not_exist_card_number)
+      end
+
+      it do
+        expect { state.action }.to output(/#{no_card_message}/).to_stdout
+      end
+    end
   end
 end

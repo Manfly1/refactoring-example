@@ -1,3 +1,3 @@
 require_relative 'lib/bootstrap'
 
-Entities::Console.new.start
+Console.new.start

@@ -4,16 +4,16 @@ module States
 
     def action
       @errors = []
-      @context.extant_account = Entities::Account.new(name: name_input, login: login_input, age: age_input,
-                                                      password: password_input)
+      @context.state.extant_account = Entities::Account.new(name: name_input, login: login_input, age: age_input,
+                                                            password: password_input)
       return if errors
 
-      @context.accounts << @context.extant_account
-      @context.save
+      @context.state.accounts << @context.state.extant_account
+      @context.state.save
     end
 
     def next
-      return CreateAccount.new(@context) if @next_state == CREATE_ACCOUNT_STATE
+      return CreateAccount.new(@context) if errors
 
       MenuAccount.new(@context)
     end
@@ -21,31 +21,41 @@ module States
     private
 
     def errors
-      return false if @errors.empty?
+      return false if errors?
 
       @errors.each { |error| puts error }
       @next_state = CREATE_ACCOUNT_STATE
       true
     end
 
+    def errors?
+      @errors.empty?
+    end
+
     def name_input
-      puts I18n.t(:name_message)
-      read_input
+      puts 'Enter your name'
+      validated_value(Validation::Name, read_input)
     end
 
     def login_input
-      puts I18n.t(:login_message)
-      read_input
+      puts 'Enter your login'
+      validated_value(Validation::Login, read_input, @context.state.accounts)
     end
 
     def password_input
-      puts I18n.t(:password_message)
-      read_input
+      puts 'Enter your password'
+      validated_value(Validation::Password, read_input)
     end
 
     def age_input
-      puts I18n.t(:age_message)
+      puts 'Enter your age'
       read_input
+    end
+
+    def validated_value(validator, *args)
+      validator = validator.new(args)
+      @errors << validator.errors unless validator.valid?
+      validator.value
     end
   end
 end

@@ -1,15 +1,13 @@
 module Storage
-  attr_accessor :extant_account, :state, :accounts, :file_path
+  attr_accessor :extant_account, :state, :accounts
 
-  def initialize(file_path)
-    @file_path = file_path
-  end
+  STORAGE_FILE = 'accounts.yml'.freeze
 
   def save
-    File.open(@file_path, 'w') { |f| f.write @accounts.to_yaml }
+    File.open(STORAGE_FILE, 'w') { |f| f.write @accounts.to_yaml }
   end
 
   def load_accounts
-    @accounts = File.exist?(@file_path) ? YAML.load_file(@file_path) : []
+    @accounts = File.exist?(STORAGE_FILE) ? YAML.load_file(STORAGE_FILE) : []
   end
 end

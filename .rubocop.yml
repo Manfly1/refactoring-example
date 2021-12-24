@@ -27,4 +27,6 @@ Style/GuardClause:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Lint/NestedMethodDefinition:
+  Enabled: false
   

@@ -2,7 +2,7 @@ module States
   class MoneyWithdraw < Base
     def action
       puts I18n.t(:withdraw_money_message)
-      return unless account_have_cards?(@context.extant_account.card)
+      return unless account_have_cards?(cards)
 
       select_card_step
     end
@@ -14,7 +14,7 @@ module States
     private
 
     def select_card_step
-      print_cards(@context.extant_account.card)
+      print_cards(cards)
       @selected_card_index = read_input.to_i
       return unless card_index_valid?(@selected_card_index)
 
@@ -31,7 +31,7 @@ module States
 
     def read_amount_step
       @selected_card_index -= 1
-      @current_card = @context.extant_account.card[@selected_card_index]
+      @current_card = cards[@selected_card_index]
       @amount = read_input_with_title(I18n.t(:withdraw_amount_message)).to_i
       return unless amount_valid?(@amount)
 
@@ -40,8 +40,8 @@ module States
 
     def save_balance_step
       @current_card.balance = @money_left
-      @context.extant_account.card[@selected_card_index] = @current_card
-      @context.save
+      cards[@selected_card_index] = @current_card
+      @context.state.save
       withdraw_stats(@amount, @current_card.number, @money_left, @withdraw_tax_amount)
     end
 
