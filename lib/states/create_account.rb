@@ -4,47 +4,43 @@ module States
 
     def action
       @errors = []
-      @context.state.extant_account = Entities::Account.new(name: name_input, login: login_input, age: age_input,
-                                                            password: password_input)
-      return if errors
+      @context.extant_account = Entities::Account.new(name: name_input, login: login_input, age: age_input,
+                                                      password: password_input)
+      unless @errors.empty?
+        print_errors
+        return
+      end
 
-      @context.state.accounts << @context.state.extant_account
-      @context.state.save
+      @context.accounts << @context.extant_account
+      @context.save
     end
 
     def next
-      return CreateAccount.new(@context) if errors
+      return MenuAccount.new(@context) if @errors.empty?
 
-      MenuAccount.new(@context)
+      CreateAccount.new(@context)
     end
 
     private
 
-    def errors
-      return false if errors?
-
+    def print_errors
       @errors.each { |error| puts error }
-      @next_state = CREATE_ACCOUNT_STATE
-      true
-    end
-
-    def errors?
-      @errors.empty?
     end
 
     def name_input
       puts 'Enter your name'
-      read_input
+      validation = Validation::Name.new(read_input)
+      validated_value(validation, read_input)
     end
 
     def login_input
       puts 'Enter your login'
-      read_input
+      validated_value(Validation::Login, read_input, @context.accounts)
     end
 
     def password_input
       puts 'Enter your password'
-      read_input
+      validated_value(Validation::Password, read_input)
     end
 
     def age_input

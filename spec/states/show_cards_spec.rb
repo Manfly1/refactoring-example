@@ -1,6 +1,6 @@
 RSpec.describe States::ShowCards do
   let(:state) { described_class.new(context) }
-  let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
+  let(:extant_account) { instance_double('Account', name: name, login: login, password: password, age: age, cards: []) }
   let(:name) { 'Andrii' }
   let(:login) { 'andrii' }
   let(:password) { '987654' }
@@ -8,7 +8,7 @@ RSpec.describe States::ShowCards do
   let(:cards) { [instance_double('Card', number: card_number, type: card_type)] }
   let(:card_number) { '1234555512345555' }
   let(:card_type) { 'usual' }
-  let(:context) { Context.new }
+  let(:context) { instance_double('Context') }
 
   describe '#action' do
     before do
@@ -23,7 +23,7 @@ RSpec.describe States::ShowCards do
 
     context 'with cards right index' do
       before do
-        allow(extant_account).to receive(:card).and_return(cards)
+        allow(extant_account).to receive(:cards).and_return(cards)
       end
 
       it do

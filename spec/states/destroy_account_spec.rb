@@ -3,21 +3,14 @@ RSpec.describe States::DestroyAccount do
   let(:disapply) { 'n' }
   let(:state) { described_class.new(context) }
   let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
-  let(:context) { instance_double('Storage') }
+  let(:context) { instance_double('Context') }
   let(:accounts) { [extant_account] }
 
   describe '#next' do
     context 'success' do
-      it do
+      it 'next to step Welcome' do
         state.instance_variable_set(:@answer, apply)
         expect(state.next).not_to be_a(States::Welcome)
-      end
-    end
-
-    context 'falsey' do
-      it do
-        state.instance_variable_set(:@answer, disapply)
-        expect(state.next).to be_a(States::MenuAccount)
       end
     end
   end

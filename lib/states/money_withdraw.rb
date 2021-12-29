@@ -41,7 +41,7 @@ module States
     def save_balance_step
       @current_card.balance = @money_left
       cards[@selected_card_index] = @current_card
-      @context.state.save
+      @context.save
       withdraw_stats(@amount, @current_card.number, @money_left, @withdraw_tax_amount)
     end
 

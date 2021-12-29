@@ -8,8 +8,8 @@ module States
 
       login = read_login
       password = read_password
-      @context.state.extant_account = get_account(login, password)
-      puts I18n.t(:no_account_message) unless @context.state.extant_account
+      @context.extant_account = get_account(login, password)
+      puts I18n.t(:no_account_message) unless @context.extant_account
     end
 
     def next
@@ -22,7 +22,7 @@ module States
     private
 
     def empty_account?
-      @context.state.accounts.empty?
+      @context.accounts.empty?
     end
 
     def read_login
@@ -36,7 +36,7 @@ module States
     end
 
     def get_account(login, password)
-      @context.state.accounts.detect { |account| account.login == login && account.password == password }
+      @context.accounts.detect { |account| account.login == login && account.password == password }
     end
   end
 end

@@ -19,11 +19,11 @@ module States
     end
 
     def account_card
-      @context.state.extant_account.card
+      @context.extant_account.cards
     end
 
     def choose_card
-      print_cards(@context.state.extant_account.card, I18n.t(:destroy_card_message))
+      print_cards(@context.extant_account.cards, I18n.t(:destroy_card_message))
       selected_card_index = read_input.to_i
       return unless card_index_valid?(selected_card_index)
 
@@ -31,7 +31,7 @@ module States
     end
 
     def apply_to_delete_cart(selected_card_index)
-      puts I18n.t(:destroy_card_message, card_number: @context.state.extant_account.card[selected_card_index - 1])
+      puts I18n.t(:destroy_card_message, card_number: @context.extant_account.cards[selected_card_index - 1])
       return unless read_input == APPLY_COMMAND
 
       delete_cart(selected_card_index)
@@ -39,7 +39,7 @@ module States
     end
 
     def delete_cart(selected_card_index)
-      @context.state.extant_account.card.delete_at(selected_card_index - 1)
+      @context.extant_account.cards.delete_at(selected_card_index - 1)
     end
   end
 end

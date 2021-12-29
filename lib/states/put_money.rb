@@ -36,7 +36,7 @@ module States
 
       current_card.balance = current_card.balance + input_amount - tax
       cards[selected_card_index] = current_card
-      @context.state.save
+      @context.save
       put_stats(input_amount, current_card.number, current_card.balance, tax)
     end
 

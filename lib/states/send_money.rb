@@ -43,7 +43,7 @@ module States
     end
 
     def taxes_step
-      @sender_tax_amount = sender_tax(@sender_card.type, @amount)
+      @sender_tax_amount = send_tax(@sender_card.type, @amount)
       @receiver_tax_amount = put_tax(@receiver_card.type, @amount)
       @sender_balance = @sender_card.balance - @amount - @sender_tax_amount
       @receiver_balance = @receiver_card.balance + @amount - @receivertax_amount
@@ -56,7 +56,7 @@ module States
     def save_balances_step
       @sender_card.balance = @sender_balance
       @receiver_card.balance = @receiver_balance
-      @context.state.save
+      @context.save
       withdraw_stats(@amount, @sender_card.number, @sender_balance, @sender_tax_amount)
       put_stats(@amount, @rreceiver_card_number, @receiver_balance, @receiver_tax_amount)
     end
@@ -69,11 +69,11 @@ module States
     end
 
     def card_by_number(card_number)
-      @context.state.accounts.flat_map(&:card).detect { |card| card.number == card_number }
+      @context.accounts.flat_map(&:cards).detect { |cards| cards.number == card_number }
     end
 
-    def card_exists?(card, _card_number)
-      return true unless card.nil?
+    def card_exists?(_card, _card_number)
+      return true unless cards.nil?
 
       puts I18n.t(:no_card_with_number_message)
       false

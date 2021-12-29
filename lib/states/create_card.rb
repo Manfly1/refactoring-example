@@ -8,8 +8,8 @@ module States
         return
       end
 
-      @context.state.extant_account.cards << @cards
-      @context.state.save
+      @context.extant_account.cards << @cards
+      @context.save
     end
 
     def next

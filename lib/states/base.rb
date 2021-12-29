@@ -1,10 +1,8 @@
 module States
   class Base
-    
     include Helper
     include Validate
     include Statistic
-    include Storage
 
     APPLY_COMMAND = 'y'.freeze
 
@@ -21,13 +19,13 @@ module States
     end
 
     def save_context
-      @context.state.save
+      @context.save
     end
 
     def cards
-      raise Errors::NoCardsForAccount unless @context.state.extant_account.cards
+      raise Errors::NoCardsForAccount unless @context.extant_account.cards
 
-      @context.state.extant_account.cards
+      @context.extant_account.cards
     end
   end
 end

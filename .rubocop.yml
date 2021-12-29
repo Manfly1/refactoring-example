@@ -21,6 +21,9 @@ Style/Documentation:
 Style/OptionalBooleanParameter:
   Enabled: false
 
+Lint/DuplicateMethods:
+  Enabled: false
+
 Style/GuardClause:
   Enabled: false
   
