@@ -1,7 +1,7 @@
 module States
   class AccountLoad < Base
     def action
-      if @context.state.accounts.empty?
+      if empty_account?
         puts I18n.t(:no_active_account_message)
         return @answer = read_input
       end
@@ -14,12 +14,16 @@ module States
 
     def next
       return States::CreateAccount.new(@context) if @answer == APPLY_COMMAND
-      return States::Welcome.new(@context) if @context.state.accounts.empty? && @answer != APPLY_COMMAND
+      return States::Welcome.new(@context) if empty_account? && @answer != APPLY_COMMAND
 
       MenuAccount.new(@context)
     end
 
     private
+
+    def empty_account?
+      @context.state.accounts.empty?
+    end
 
     def read_login
       puts I18n.t(:login_message)

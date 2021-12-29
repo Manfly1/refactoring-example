@@ -4,7 +4,7 @@ RSpec.describe States::CreateCard do
   VIRTUAL_CARD = 'virtual'.freeze
 
   let(:state) { described_class.new(context) }
-  let(:context) { instance_double('Context') }
+  let(:context) { Context.new }
 
   describe '#next' do
     context 'with wrong card' do

@@ -1,5 +1,6 @@
 module States
   class Base
+    
     include Helper
     include Validate
     include Statistic

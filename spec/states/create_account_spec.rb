@@ -1,6 +1,7 @@
 RSpec.describe States::CreateAccount do
   let(:state) { described_class.new(context) }
-  let(:context) { instance_double('Storage', accounts: []) }
+  
+  let(:context) { Context.new}
   let(:extant_account) { instance_double('Account', name: 'Andrii', login: 'andrii', password: '987654', age: '54') }
 
   describe '#action' do

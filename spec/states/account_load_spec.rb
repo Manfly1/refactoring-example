@@ -2,7 +2,7 @@ RSpec.describe States::AccountLoad do
   let(:state) { described_class.new(context) }
   let(:apply) { 'y' }
   let(:account) { instance_double('Account', name: name, login: login, password: password, age: age, card: []) }
-  let(:context) { instance_double('Context') }
+  let(:context) { Context.new }
   let(:accounts) { [account] }
   let(:name) { 'Andrii' }
   let(:login) { 'andrii' }
@@ -21,7 +21,7 @@ RSpec.describe States::AccountLoad do
 
     context 'menu acccount state' do
       before do
-        allow(context).to receive(:accounts).and_return(accounts)
+        allow(state).to receive(:accounts).and_return(accounts)
       end
 
       it do
@@ -43,7 +43,7 @@ RSpec.describe States::AccountLoad do
 
     context 'with account' do
       before do
-        allow(context).to receive_messages(extant_account: nil, 'extant_account=': account, accounts: accounts)
+        allow(state).to receive_messages(extant_account: nil, 'extant_account=': account, accounts: accounts)
         allow(state).to receive(:read_input).and_return(login, password)
       end
 

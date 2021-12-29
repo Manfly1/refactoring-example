@@ -8,7 +8,7 @@ RSpec.describe States::ShowCards do
   let(:cards) { [instance_double('Card', number: card_number, type: card_type)] }
   let(:card_number) { '1234555512345555' }
   let(:card_type) { 'usual' }
-  let(:context) { instance_double('Storage') }
+  let(:context) { Context.new }
 
   describe '#action' do
     before do

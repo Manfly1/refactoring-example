@@ -34,17 +34,17 @@ module States
 
     def name_input
       puts 'Enter your name'
-      validated_value(Validation::Name, read_input)
+      read_input
     end
 
     def login_input
       puts 'Enter your login'
-      validated_value(Validation::Login, read_input, @context.state.accounts)
+      read_input
     end
 
     def password_input
       puts 'Enter your password'
-      validated_value(Validation::Password, read_input)
+      read_input
     end
 
     def age_input

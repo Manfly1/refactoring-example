@@ -22,9 +22,10 @@ module States
 
     def select_card_step
       print_cards(cards)
-      selected_card_index = read_input.to_i(-1)
+      selected_card_index = read_input.to_i
       return unless card_index_valid?(selected_card_index)
 
+      selected_card_index -= 1
       current_card = cards[selected_card_index]
       read_amount_step(selected_card_index, current_card)
     end
@@ -42,7 +43,6 @@ module States
     def tax_valid?(tax, amount)
       return true if tax < amount
 
-      puts I18n.t(:invalid_amount_message)
       false
     end
 

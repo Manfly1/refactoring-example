@@ -21,14 +21,6 @@ module States
       read_amount_step
     end
 
-    def tax_step
-      @withdraw_tax_amount = withdraw_tax(@current_card.type, @amount)
-      @money_left = @current_card.balance - @amount - @withdraw_tax_amount
-      return unless balance_valid?(@money_left)
-
-      save_balance_step
-    end
-
     def read_amount_step
       @selected_card_index -= 1
       @current_card = cards[@selected_card_index]
@@ -36,6 +28,14 @@ module States
       return unless amount_valid?(@amount)
 
       tax_step
+    end
+
+    def tax_step
+      @withdraw_tax_amount = withdraw_tax(@current_card.type, @amount)
+      @money_left = @current_card.balance - @amount - @withdraw_tax_amount
+      return unless balance_valid?(@money_left)
+
+      save_balance_step
     end
 
     def save_balance_step
