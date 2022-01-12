@@ -4,6 +4,11 @@ module Entities
     CAPITALIST_TYPE = 'capitalist'.freeze
     VIRTUAL_TYPE = 'virtual'.freeze
     DEFAULT_TAX = 0
+    TAXES = {
+      USUAL_TYPE: 0.05,
+      CAPITALIST_TYPE: 0.04,
+      VIRTUAL_TYPE: 0.88
+    }.freeze
 
     def initialize(type)
       @type = type

@@ -1,6 +1,4 @@
 class Console
-  STORAGE_FILE = 'accounts.yml'.freeze
-
   def initialize
     @context = Context.new
     @context.state = States::Welcome.new(@context)

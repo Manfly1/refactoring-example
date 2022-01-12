@@ -1,11 +1,5 @@
 module Entities
   class SendTax < Tax
-    TAXES = {
-      USUAL_TYPE: 0.05,
-      CAPITALIST_TYPE: 0.1,
-      VIRTUAL_TYPE: 0.88
-    }.freeze
-
     def tax(amount)
       case @type
       when USUAL_TYPE then 20
