@@ -7,9 +7,9 @@ module Validation
     end
 
     def validate
-      @errors.push('Login must present') if @value == ''
-      @errors.push('Login must be longer then 4 symbols') if @value.length < 4
-      @errors.push('Login must be shorter then 20 symbols') if @value.length > 20
+      @errors.push(puts I18n.t(:login_validation)) if @value == ''
+      @errors.push(puts I18n.t(:login_validation_length)) if @value.length < 4
+      @errors.push(puts I18n.t(:login_validation_symbol)) if @value.length > 20
     end
   end
 end

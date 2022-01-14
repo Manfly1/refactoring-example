@@ -23,14 +23,14 @@ module States
 
     def receiver_card_step
       @receiver_card = card_by_number(@receiver_card_number)
-      return unless card_exists?(@receiver_card, @receiver_card_number)
+      return if cards.nil?
 
       amount_step
     end
 
     def receiver_card_number_step
       @receiver_card_number = read_input_with_title(I18n.t(:receiver_card))
-      return unless card_length_valid?(@receiver_card_number)
+      return unless card_number.length.between?(15, 17)
 
       receiver_card_step
     end
@@ -47,7 +47,6 @@ module States
       @receiver_tax_amount = put_tax(@receiver_card.type, @amount)
       @sender_balance = @sender_card.balance - @amount - @sender_tax_amount
       @receiver_balance = @receiver_card.balance + @amount - @receivertax_amount
-      return unless balance_valid?(@sender_balance)
       return unless receiver_tax_valid?(@receiver_tax_amount, @amount)
 
       save_balances_step
@@ -71,14 +70,8 @@ module States
       @context.accounts.flat_map(&:cards).detect { |cards| cards.number == card_number }
     end
 
-    def card_exists?(_card, _card_number)
+    def card_exists?(_card)
       return true unless cards.nil?
-
-      false
-    end
-
-    def card_length_valid?(card_number)
-      return true if card_number.length.between?(15, 17)
 
       false
     end

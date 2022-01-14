@@ -53,3 +53,11 @@ en:
   not_enough_money_error: 'Not enough money for such operation'
   too_small_amount_error: 'Your tax is higher than input amount'
 
+  age_validation: 'Your Age must be greeter then 23 and lower then 90'
+  login_validation: 'Login must present'
+  login_validation_length: 'Login must be longer then 4 symbols'
+  login_validation_symbol: 'Login must be shorter then 20 symbols'
+  name_validation: 'Your name must not be empty and starts with first upcase letter'
+  password_validation: 'Password must present'
+  password_validation_longer: 'Password must be longer then 6 symbols'
+  password_validation_shorter: 'Password must be shorter then 30 symbols'
