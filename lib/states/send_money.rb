@@ -47,7 +47,7 @@ module States
       @receiver_tax_amount = put_tax(@receiver_card.type, @amount)
       @sender_balance = @sender_card.balance - @amount - @sender_tax_amount
       @receiver_balance = @receiver_card.balance + @amount - @receivertax_amount
-      return unless receiver_tax_valid?(@receiver_tax_amount, @amount)
+      return true if @receiver_tax_amount < @input_amount
 
       save_balances_step
     end
@@ -58,12 +58,6 @@ module States
       @context.save
       withdraw_stats(@amount, @sender_card.number, @sender_balance, @sender_tax_amount)
       put_stats(@amount, @rreceiver_card_number, @receiver_balance, @receiver_tax_amount)
-    end
-
-    def receiver_tax_valid?(receiver_tax_amount, input_amount)
-      return true if receiver_tax_amount < input_amount
-
-      false
     end
 
     def card_by_number(card_number)
