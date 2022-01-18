@@ -1,8 +1,7 @@
 module States
   class DestroyAccount < Base
     def action
-      puts I18n.t(:destroy_account_message)
-      @answer = read_input
+      @answer = read_input_with_title( puts I18n.t(:destroy_account_message))
       if apply_command?
         @context.accounts.delete_if { |account| account.login == @context.extant_account.login }
         @context.save

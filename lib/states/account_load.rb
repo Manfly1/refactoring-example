@@ -5,11 +5,9 @@ module States
         puts I18n.t(:no_active_account_message)
         return @answer = read_input
       end
-      read_login = read_input_with_title(puts(I18n.t(:login_message)))
-      read_password = read_input_with_title(puts(I18n.t(:password_message)))
+      login = read_input_with_title(puts(I18n.t(:login_message)))
+      password = read_input_with_title(puts(I18n.t(:password_message)))
 
-      login = read_login
-      password = read_password
       @context.extant_account = get_account(login, password)
       puts I18n.t(:no_account_message) unless @context.extant_account
     end

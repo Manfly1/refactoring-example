@@ -1,8 +1,7 @@
 module States
   class CreateCard < Base
     def action
-      puts I18n.t(:create_card_message)
-      @cards = Factories::CardFactory.card(read_input.to_sym)
+      @cards = Factories::CardFactory.card(read_input_with_title(puts(I18n.t(:create_card_message))).to_sym)
       unless @cards
         puts I18n.t(:wrong_card_type_message)
         return

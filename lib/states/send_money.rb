@@ -64,12 +64,6 @@ module States
       @context.accounts.flat_map(&:cards).detect { |cards| cards.number == card_number }
     end
 
-    def card_exists?(_card)
-      return true unless cards.nil?
-
-      false
-    end
-
     def put_tax(type, amount)
       Entities::PutTax.new(type).tax(amount)
     end

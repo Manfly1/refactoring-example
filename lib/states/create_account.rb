@@ -4,6 +4,11 @@ module States
 
     def action
       @errors = []
+      name_input = read_input_with_title('Enter your name')
+      login_input = read_input_with_title('Enter your login')
+      age_input = read_input_with_title('Enter your age')
+      password_input = read_input_with_title('Enter your password')
+
       @context.extant_account = Entities::Account.new(name: name_input, login: login_input, age: age_input,
                                                       password: password_input)
       unless @errors.empty?
@@ -28,24 +33,20 @@ module States
     end
 
     def name_input
-      puts 'Enter your name'
-      validation = Validation::Name.new(read_input)
-      validated_value(validation, read_input)
+      validation = Validation::Name.new(name_input)
+      validated_value(validation, name_input)
     end
 
     def login_input
-      puts 'Enter your login'
-      validated_value(Validation::Login, read_input, @context.accounts)
+      validated_value(Validation::Login, login_input, @context.accounts)
     end
 
     def password_input
-      puts 'Enter your password'
-      validated_value(Validation::Password, read_input)
+      validated_value(Validation::Password, password_input)
     end
 
     def age_input
-      puts 'Enter your age'
-      read_input
+      validated_value(Validation::Age, age_input)
     end
 
     def validated_value(validator, *args)
