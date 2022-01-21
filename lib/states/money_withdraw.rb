@@ -1,7 +1,7 @@
 module States
   class MoneyWithdraw < Base
     def action
-      puts I18n.t(:withdraw_money_message)
+      I18n.t(:withdraw_money_message)
       return unless account_have_cards?(cards)
 
       select_card_step

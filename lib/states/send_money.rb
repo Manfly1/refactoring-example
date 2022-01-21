@@ -1,7 +1,7 @@
 module States
   class SendMoney < Base
     def action
-      puts I18n.t(:send_money_message)
+      I18n.t(:send_money_message)
       select_card_step if account_have_cards?(cards)
     end
 
